@@ -1,0 +1,3422 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ficha Jujutsu Kaisen</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f1f2f4;
+      --ink: #151515;
+      --muted: #626a73;
+      --panel: #ffffff;
+      --line: #171717;
+      --soft-line: #cfd4da;
+      --soft-fill: #f5f6f8;
+      --accent: #bb1f24;
+      --accent-dark: #741216;
+      --field-focus: #fff2a8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      padding: 18px;
+    }
+
+    input,
+    textarea,
+    select,
+    button {
+      font: inherit;
+    }
+
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+      margin: 0;
+      -webkit-appearance: none;
+    }
+
+    input[type="number"] {
+      appearance: textfield;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      max-width: 1120px;
+      margin: 0 auto 16px;
+      padding: 12px 14px;
+      border: 1px solid #d6d9dd;
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+    }
+
+    .brand {
+      min-width: 210px;
+    }
+
+    .brand strong,
+    .sheet-heading,
+    .section-title strong,
+    .ability-name,
+    .block-title,
+    .view-head h1,
+    .builder-card h2 {
+      font-family: Impact, "Arial Black", sans-serif;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 1.2rem;
+    }
+
+    .brand span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-top: 2px;
+    }
+
+    .pp-total {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 7px;
+      padding: 5px 8px;
+      border-radius: 6px;
+      background: #171717;
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .pp-total.over-limit {
+      background: var(--accent);
+    }
+
+    .nav-tabs,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .actions {
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    button,
+    .toggle {
+      min-height: 36px;
+      border: 1px solid #c4c8ce;
+      border-radius: 6px;
+      background: #ffffff;
+      color: #171717;
+      font: 700 0.88rem/1 Arial, Helvetica, sans-serif;
+      cursor: pointer;
+    }
+
+    button {
+      padding: 0 12px;
+    }
+
+    button.primary,
+    .nav-tabs button.active {
+      border-color: var(--accent-dark);
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .nav-tabs button {
+      min-width: 92px;
+    }
+
+    .nav-tabs button.active {
+      border-color: #151515;
+      background: #151515;
+    }
+
+    button:hover,
+    .toggle:hover {
+      border-color: #7d858f;
+    }
+
+    .toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 10px;
+      user-select: none;
+    }
+
+    .toggle input {
+      margin: 0;
+    }
+
+    .status {
+      min-width: 52px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-align: right;
+    }
+
+    .stage {
+      overflow-x: auto;
+      padding-bottom: 24px;
+    }
+
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    .sheet {
+      display: grid;
+      gap: 14px;
+      width: min(1120px, calc(100vw - 36px));
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 18px;
+      background: #ffffff;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.2);
+    }
+
+    .sheet input,
+    .sheet textarea {
+      width: 100%;
+      min-width: 0;
+      border: 0;
+      border-radius: 2px;
+      background: transparent;
+      color: #111111;
+      outline: 0;
+    }
+
+    .sheet textarea {
+      resize: vertical;
+    }
+
+    .sheet input:focus,
+    .sheet textarea:focus {
+      background: var(--field-focus);
+      box-shadow: 0 0 0 2px #f3cc42;
+    }
+
+    body.highlight-fields .sheet input,
+    body.highlight-fields .sheet textarea {
+      background: rgba(255, 248, 196, 0.42);
+      box-shadow: inset 0 0 0 1px rgba(187, 31, 36, 0.2);
+    }
+
+    body.highlight-fields .sheet input:focus,
+    body.highlight-fields .sheet textarea:focus {
+      background: var(--field-focus);
+      box-shadow: 0 0 0 2px #f3cc42;
+    }
+
+    .sheet-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .identity-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 7px 10px;
+      align-content: start;
+    }
+
+    .identity-grid .wide {
+      grid-column: 1 / -1;
+    }
+
+    .identity-grid .half {
+      grid-column: span 2;
+    }
+
+    .line-field {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 8px;
+      align-items: end;
+      min-height: 32px;
+      border-bottom: 2px solid var(--line);
+    }
+
+    .line-field span,
+    .box-label,
+    .table-head,
+    .power-label,
+    .defense-label {
+      color: #111111;
+      font-family: Impact, "Arial Black", sans-serif;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .line-field span {
+      white-space: nowrap;
+      font-size: 0.92rem;
+    }
+
+    .identity-grid .line-field {
+      min-height: 30px;
+    }
+
+    .feiticeiro-field span {
+      font-size: 1.3rem;
+    }
+
+    .feiticeiro-field input {
+      font-size: 1.5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .identity-grid .feiticeiro-field {
+      min-height: 50px;
+      padding-bottom: 2px;
+    }
+
+    .sheet-side {
+      display: grid;
+      gap: 10px;
+    }
+
+    .sheet-side-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 8px;
+    }
+
+    .black-box {
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .black-box > .block-title,
+    .points-box .block-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 30px;
+      padding: 4px 8px;
+      background: #111111;
+      color: #ffffff;
+      font-size: 1rem;
+    }
+
+    .points-box {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 82px;
+      align-items: stretch;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .points-box.compact {
+      grid-template-columns: minmax(0, 1fr) 58px;
+    }
+
+    .points-box.compact .block-title {
+      padding: 4px 6px;
+      font-size: 0.78rem;
+      line-height: 1.05;
+    }
+
+    .points-box.compact input {
+      font-size: 1.12rem;
+    }
+
+    .points-box .block-title {
+      min-height: 42px;
+    }
+
+    .points-box input {
+      min-height: 42px;
+      border-left: 2px solid var(--line);
+      font: 900 1.35rem/1 Arial, Helvetica, sans-serif;
+      text-align: center;
+    }
+
+    .complications textarea {
+      min-height: 116px;
+      padding: 8px;
+      line-height: 1.22;
+    }
+
+    .sheet-pp-badge {
+      display: inline-grid;
+      place-items: center;
+      justify-self: end;
+      min-width: 88px;
+      padding: 7px 10px;
+      border: 2px solid #111111;
+      border-radius: 7px;
+      background: #ffffff;
+      color: #171717;
+      font-weight: 900;
+    }
+
+    .sheet-pp-badge.over-limit {
+      border-color: var(--accent-dark);
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .pp-limit-warning {
+      display: none;
+      padding: 7px 9px;
+      border: 2px solid var(--accent-dark);
+      border-radius: 7px;
+      background: #fff2f2;
+      color: var(--accent-dark);
+      font-size: 0.78rem;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .pp-limit-warning.active {
+      display: block;
+    }
+
+    .sheet-main-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.84fr) minmax(300px, 1fr) minmax(280px, 0.96fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .panel {
+      min-width: 0;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    .panel.unframed {
+      border: 0;
+      border-radius: 0;
+      overflow: visible;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      min-height: 34px;
+      padding: 4px 8px;
+      border-top: 2px solid var(--line);
+      border-bottom: 2px solid var(--line);
+      background: linear-gradient(90deg, #d8dce1 0%, #f5f6f8 58%, #ffffff 100%);
+    }
+
+    .section-title:first-child {
+      border-top: 0;
+    }
+
+    .section-title strong {
+      font-size: 1.08rem;
+      line-height: 1;
+    }
+
+    .section-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mini-button {
+      min-height: 26px;
+      padding: 0 8px;
+      border-color: #9aa2ad;
+      border-radius: 5px;
+      font-size: 0.75rem;
+    }
+
+    .abilities-panel {
+      display: grid;
+      gap: 12px;
+    }
+
+    .abilities-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+      padding: 8px;
+    }
+
+    .ability-card {
+      display: grid;
+      grid-template-rows: auto 44px minmax(56px, 1fr);
+      min-height: 130px;
+      border: 2px solid var(--line);
+      border-radius: 8px 8px 5px 5px;
+      overflow: hidden;
+    }
+
+    .ability-name {
+      display: grid;
+      place-items: center;
+      min-height: 31px;
+      background: #111111;
+      color: #ffffff;
+      font-size: 1.22rem;
+    }
+
+    .ability-card input {
+      border-bottom: 2px solid var(--line);
+      font: 900 1.45rem/1 Arial, Helvetica, sans-serif;
+      text-align: center;
+    }
+
+    .ability-note {
+      display: grid;
+      place-items: center;
+      padding: 5px;
+      color: #4b535c;
+      font-size: 0.68rem;
+      line-height: 1.12;
+      text-align: center;
+    }
+
+    .sheet-table {
+      display: grid;
+    }
+
+    .table-head,
+    .sheet-table-row {
+      display: grid;
+      align-items: stretch;
+    }
+
+    .table-head {
+      min-height: 28px;
+      background: #111111;
+      color: #ffffff;
+      font-size: 0.78rem;
+    }
+
+    .table-head span {
+      display: grid;
+      align-items: center;
+      min-width: 0;
+      padding: 4px 6px;
+      border-right: 1px solid #454545;
+    }
+
+    .table-head span:last-child,
+    .sheet-table-row > *:last-child {
+      border-right: 0;
+    }
+
+    .sheet-table-row {
+      min-height: 28px;
+      border-bottom: 1px dotted #858585;
+    }
+
+    .sheet-table-row input,
+    .sheet-table-row textarea {
+      min-height: 28px;
+      padding: 4px 6px;
+      border-right: 1px solid #d5d9de;
+      border-radius: 0;
+      font-size: 0.88rem;
+    }
+
+    .small-number {
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .skills-grid {
+      grid-template-columns: minmax(0, 1fr) 58px 58px;
+    }
+
+    .advantages-grid {
+      grid-template-columns: minmax(0, 1fr) 58px 58px;
+    }
+
+    .attacks-grid {
+      grid-template-columns: minmax(0, 1fr) 64px 64px minmax(120px, 0.85fr);
+    }
+
+    .powers-section {
+      display: grid;
+      gap: 8px;
+    }
+
+    .powers-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .power-card {
+      display: grid;
+      border: 2px solid var(--line);
+      border-radius: 14px 6px 8px 6px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .power-name-line {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 74px;
+      background: #111111;
+      color: #ffffff;
+    }
+
+    .power-field {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+      padding: 5px 7px;
+      border-right: 1px solid #4b4b4b;
+    }
+
+    .power-field:last-child {
+      border-right: 0;
+    }
+
+    .power-label {
+      color: #c8cbd0;
+      font-size: 0.62rem;
+    }
+
+    .power-field input {
+      min-height: 24px;
+      color: #ffffff;
+      font-weight: 800;
+    }
+
+    body.highlight-fields .power-field input,
+    .power-field input:focus {
+      color: #111111;
+    }
+
+    .power-meta {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      background: #111111;
+      border-top: 1px solid #4b4b4b;
+    }
+
+    .power-card textarea {
+      min-height: 74px;
+      padding: 8px;
+      border-top: 2px solid var(--line);
+      line-height: 1.22;
+    }
+
+    .health-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.55fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: stretch;
+      padding: 8px;
+    }
+
+    .health-subtitle {
+      display: grid;
+      place-items: center start;
+      min-height: 28px;
+      padding: 4px 8px;
+      border: 2px solid var(--line);
+      border-radius: 7px;
+      background: #111111;
+      color: #ffffff;
+      font-family: Impact, "Arial Black", sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .spiritual-energy-block {
+      display: grid;
+      gap: 8px;
+    }
+
+    .health-condition-stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    .hits-notes {
+      display: grid;
+      grid-template-columns: 86px minmax(0, 1fr);
+      gap: 8px;
+    }
+
+    .hits-notes .black-box {
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .hits-box input {
+      min-height: 0;
+      height: 100%;
+      font: 900 2rem/1 Arial, Helvetica, sans-serif;
+      text-align: center;
+    }
+
+    .notes-box textarea {
+      min-height: 0;
+      height: 100%;
+      padding: 8px;
+      line-height: 1.22;
+    }
+
+    .conditions-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .condition-toggle {
+      display: grid;
+      gap: 4px;
+      align-content: start;
+      min-height: 128px;
+      padding: 0;
+      border: 2px solid var(--line);
+      border-radius: 10px 10px 6px 6px;
+      overflow: hidden;
+      background: #ffffff;
+      text-align: center;
+    }
+
+    .condition-toggle strong {
+      display: block;
+      padding: 5px 4px;
+      background: #111111;
+      color: #ffffff;
+      font-family: Impact, "Arial Black", sans-serif;
+      font-size: 1.05rem;
+      letter-spacing: 0;
+    }
+
+    .condition-toggle span {
+      display: block;
+      padding: 4px 6px;
+      color: #333940;
+      font-size: 0.72rem;
+      line-height: 1.17;
+    }
+
+    .condition-toggle.selected {
+      border-color: var(--accent);
+      box-shadow: inset 0 0 0 4px rgba(187, 31, 36, 0.18);
+    }
+
+    .condition-toggle.selected strong::after {
+      content: " ✓";
+    }
+
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: minmax(250px, 0.45fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .defense-list {
+      display: grid;
+      gap: 6px;
+      padding: 8px;
+    }
+
+    .defense-row {
+      display: grid;
+      grid-template-columns: 108px 56px minmax(0, 1fr);
+      min-height: 34px;
+      align-items: stretch;
+      gap: 4px;
+    }
+
+    .defense-label {
+      display: grid;
+      place-items: center;
+      border-radius: 6px 0 0 6px;
+      background: #111111;
+      color: #ffffff;
+      font-size: 0.82rem;
+    }
+
+    .defense-row input {
+      border: 2px solid var(--line);
+      border-radius: 5px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .defense-class-field {
+      position: relative;
+    }
+
+    .defense-class-field::before {
+      content: "BASE 10";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: #c2c7cd;
+      font-family: Impact, "Arial Black", sans-serif;
+      font-size: 1rem;
+      pointer-events: none;
+    }
+
+    .defense-class-field input {
+      position: relative;
+      z-index: 1;
+      background: transparent;
+    }
+
+    .offense-area {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 96px;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .initiative-box input {
+      min-height: 96px;
+      font: 900 2rem/1 Arial, Helvetica, sans-serif;
+      text-align: center;
+    }
+
+    .sheet-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 8px;
+      border-top: 8px solid #111111;
+      color: #717982;
+      font-size: 0.75rem;
+    }
+
+    .logo-text {
+      color: #111111;
+      font-family: Impact, "Arial Black", sans-serif;
+      font-size: 1.2rem;
+      text-align: right;
+      text-transform: uppercase;
+      transform: skew(-8deg);
+    }
+
+    .library-view,
+    .power-view {
+      max-width: 1120px;
+      margin: 0 auto 24px;
+      padding: 16px;
+      border: 1px solid #d6d9dd;
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.1);
+    }
+
+    .view-head {
+      display: grid;
+      grid-template-columns: 1fr minmax(220px, 320px);
+      gap: 14px;
+      align-items: end;
+      margin-bottom: 14px;
+    }
+
+    .view-head h1,
+    .builder-card h2 {
+      margin: 0;
+      font-size: 1.35rem;
+    }
+
+    .view-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .search-input,
+    .builder-grid input,
+    .builder-grid select,
+    .builder-card textarea {
+      width: 100%;
+      min-height: 38px;
+      border: 1px solid #bfc5cc;
+      border-radius: 6px;
+      padding: 8px 10px;
+      background: #ffffff;
+      color: #171717;
+      font: 500 0.92rem/1.2 Arial, Helvetica, sans-serif;
+    }
+
+    .library-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 10px;
+    }
+
+    .rule-card {
+      border: 1px solid #d2d6db;
+      border-radius: 8px;
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    .rule-card summary {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-weight: 900;
+      list-style: none;
+    }
+
+    .rule-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .rule-card summary span {
+      min-width: 0;
+    }
+
+    .rule-card summary small {
+      color: #69727c;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-align: right;
+      text-transform: uppercase;
+    }
+
+    .rule-card[open] summary {
+      border-bottom: 1px solid #e1e4e8;
+      background: #fafafa;
+    }
+
+    .rule-card-body {
+      padding: 10px 12px 12px;
+    }
+
+    .rule-card-body p {
+      margin: 0 0 10px;
+      color: #30343a;
+      font-size: 0.9rem;
+      line-height: 1.35;
+    }
+
+    .rule-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .rule-meta span {
+      padding: 4px 6px;
+      border-radius: 5px;
+      background: #eff1f3;
+      color: #30343a;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .add-row {
+      display: grid;
+      grid-template-columns: minmax(72px, 92px) 1fr;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .skill-add-row {
+      grid-template-columns: minmax(72px, 92px) 1fr auto;
+    }
+
+    .add-row input {
+      min-height: 34px;
+      border: 1px solid #bfc5cc;
+      border-radius: 6px;
+      padding: 6px 8px;
+    }
+
+    .builder-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .builder-card {
+      border: 1px solid #d2d6db;
+      border-radius: 8px;
+      padding: 14px;
+      background: #ffffff;
+    }
+
+    .builder-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .builder-grid label,
+    .mod-control label {
+      display: grid;
+      gap: 5px;
+      color: #3b4148;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .builder-grid .wide {
+      grid-column: 1 / -1;
+    }
+
+    .power-summary {
+      min-height: 88px;
+      margin-top: 12px;
+      padding: 10px;
+      border-radius: 6px;
+      background: #f4f5f7;
+      color: #30343a;
+      font-size: 0.9rem;
+      line-height: 1.35;
+    }
+
+    .cost-box {
+      display: grid;
+      gap: 5px;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #171717;
+      color: #ffffff;
+    }
+
+    .cost-box strong {
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .modifier-list {
+      display: grid;
+      gap: 8px;
+      max-height: 520px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .modifier-tools {
+      display: grid;
+      gap: 6px;
+      margin: 10px 0;
+    }
+
+    .modifier-tools .search-input {
+      width: 100%;
+    }
+
+    .modifier-section {
+      display: grid;
+      gap: 8px;
+    }
+
+    .modifier-section.is-hidden,
+    .mod-control.is-hidden,
+    .modifier-empty[hidden] {
+      display: none;
+    }
+
+    .modifier-list h3 {
+      margin: 8px 0 0;
+    }
+
+    .mod-control {
+      display: grid;
+      grid-template-columns: auto 1fr 72px;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      border: 1px solid #d9dde2;
+      border-radius: 7px;
+    }
+
+    .mod-control.specific-mod {
+      border-color: rgba(187, 31, 36, 0.45);
+      background: #fff8f8;
+    }
+
+    .mod-control p {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.25;
+    }
+
+    .mod-control input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+    }
+
+    .modifier-empty {
+      margin: 0;
+      padding: 10px;
+      border: 1px dashed #bcc4ce;
+      border-radius: 7px;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .mod-control input[type="number"] {
+      width: 72px;
+      min-height: 32px;
+      border: 1px solid #bfc5cc;
+      border-radius: 6px;
+      padding: 4px 6px;
+    }
+
+    .built-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .built-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 10px;
+      border: 1px solid #d9dde2;
+      border-radius: 7px;
+      background: #fafafa;
+      font-size: 0.88rem;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    @media (max-width: 920px) {
+      .sheet-top,
+      .sheet-main-grid,
+      .health-grid,
+      .bottom-grid,
+      .offense-area {
+        grid-template-columns: 1fr;
+      }
+
+      .powers-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      html,
+      body {
+        overflow-x: hidden;
+      }
+
+      body {
+        padding: 8px;
+      }
+
+      .toolbar {
+        align-items: stretch;
+        flex-direction: column;
+        width: 100%;
+        max-width: none;
+        margin-bottom: 10px;
+        padding: 10px;
+      }
+
+      .brand {
+        min-width: 0;
+      }
+
+      .nav-tabs,
+      .actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .nav-tabs button {
+        flex: 1 1 94px;
+        min-width: 0;
+      }
+
+      .actions button {
+        flex: 1 1 auto;
+      }
+
+      .toggle {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .status {
+        width: 100%;
+        text-align: left;
+      }
+
+      .stage {
+        width: 100%;
+        margin: 0;
+        overflow-x: hidden;
+        padding: 0 0 16px;
+      }
+
+      .sheet,
+      .library-view,
+      .power-view {
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+      }
+
+      .sheet {
+        gap: 12px;
+        padding: 10px;
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16);
+      }
+
+      .sheet-top,
+      .sheet-main-grid,
+      .health-grid,
+      .bottom-grid,
+      .offense-area,
+      .view-head,
+      .builder-layout,
+      .builder-grid,
+      .identity-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .identity-grid {
+        gap: 8px;
+      }
+
+      .identity-grid .wide,
+      .identity-grid .half {
+        grid-column: 1;
+      }
+
+      .line-field {
+        grid-template-columns: minmax(82px, auto) minmax(0, 1fr);
+        gap: 6px;
+      }
+
+      .feiticeiro-field {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .feiticeiro-field input {
+        font-size: 1.25rem;
+      }
+
+      .section-title {
+        flex-wrap: wrap;
+      }
+
+      .section-actions {
+        margin-left: auto;
+      }
+
+      .sheet-side-row,
+      .abilities-grid,
+      .conditions-grid,
+      .power-meta {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .points-box.compact {
+        grid-template-columns: minmax(0, 1fr) 52px;
+      }
+
+      .ability-card {
+        min-height: 112px;
+        grid-template-rows: auto 38px minmax(48px, 1fr);
+      }
+
+      .skills-grid,
+      .advantages-grid {
+        grid-template-columns: minmax(0, 1fr) 48px 48px;
+      }
+
+      .attacks-grid {
+        grid-template-columns: minmax(0, 1fr) 44px 44px minmax(0, 0.95fr);
+      }
+
+      .table-head {
+        font-size: 0.68rem;
+      }
+
+      .table-head span,
+      .sheet-table-row input,
+      .sheet-table-row textarea {
+        padding: 4px;
+        font-size: 0.78rem;
+      }
+
+      .power-name-line {
+        grid-template-columns: minmax(0, 1fr) 62px;
+      }
+
+      .power-card textarea {
+        min-height: 96px;
+      }
+
+      .health-grid {
+        gap: 10px;
+        padding: 6px;
+      }
+
+      .hits-notes {
+        grid-template-columns: 72px minmax(0, 1fr);
+      }
+
+      .condition-toggle {
+        min-height: 112px;
+      }
+
+      .condition-toggle strong {
+        font-size: 0.92rem;
+      }
+
+      .condition-toggle span {
+        font-size: 0.68rem;
+      }
+
+      .defense-row {
+        grid-template-columns: 96px 48px minmax(0, 1fr);
+      }
+
+      .initiative-box input {
+        min-height: 64px;
+      }
+
+      .sheet-footer,
+      .built-item {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+      }
+
+      .logo-text {
+        text-align: left;
+      }
+
+      .library-view,
+      .power-view {
+        padding: 10px;
+      }
+
+      .add-row,
+      .skill-add-row {
+        grid-template-columns: 1fr;
+      }
+
+      .mod-control {
+        grid-template-columns: auto minmax(0, 1fr);
+      }
+
+      .mod-control input[type="number"] {
+        grid-column: 2;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sheet {
+        padding: 8px;
+      }
+
+      .line-field,
+      .sheet-side-row,
+      .abilities-grid,
+      .conditions-grid,
+      .power-meta,
+      .hits-notes {
+        grid-template-columns: 1fr;
+      }
+
+      .line-field {
+        gap: 2px;
+        align-items: start;
+      }
+
+      .line-field span {
+        font-size: 0.78rem;
+      }
+
+      .defense-row {
+        grid-template-columns: 86px 44px minmax(0, 1fr);
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 7mm;
+      }
+
+      html,
+      body {
+        width: auto;
+        min-height: auto;
+        background: #ffffff;
+        color: #000000;
+        font-size: 8pt;
+      }
+
+      body {
+        padding: 0;
+      }
+
+      .toolbar,
+      .nav-tabs,
+      .library-view,
+      .power-view,
+      .mini-button {
+        display: none !important;
+      }
+
+      .stage {
+        width: 100%;
+        margin: 0;
+        overflow: visible;
+        padding: 0;
+      }
+
+      .view {
+        display: block;
+      }
+
+      .view:not([data-screen="sheet"]) {
+        display: none;
+      }
+
+      .sheet {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        gap: 2.2mm;
+        background: #ffffff;
+        box-shadow: none;
+      }
+
+      .sheet,
+      .sheet * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .sheet-top {
+        grid-template-columns: minmax(0, 1fr) 58mm;
+        gap: 2.5mm;
+      }
+
+      .identity-grid {
+        gap: 1mm 1.7mm;
+      }
+
+      .line-field {
+        min-height: 5.5mm;
+        gap: 1mm;
+        border-bottom-width: 0.35mm;
+      }
+
+      .line-field span {
+        font-size: 6.8pt;
+      }
+
+      .identity-grid .line-field {
+        min-height: 5.5mm;
+      }
+
+      .feiticeiro-field span {
+        font-size: 10pt;
+      }
+
+      .feiticeiro-field input {
+        font-size: 12pt;
+      }
+
+      .identity-grid .feiticeiro-field {
+        min-height: 9mm;
+      }
+
+      .sheet-side {
+        gap: 1.8mm;
+      }
+
+      .sheet-side-row {
+        gap: 1.5mm;
+      }
+
+      .black-box,
+      .panel,
+      .points-box,
+      .power-card,
+      .condition-toggle {
+        border-width: 0.35mm;
+        border-radius: 1.5mm;
+      }
+
+      .black-box > .block-title,
+      .points-box .block-title {
+        min-height: 5mm;
+        padding: 0.8mm 1.2mm;
+        font-size: 7pt;
+      }
+
+      .points-box {
+        grid-template-columns: minmax(0, 1fr) 16mm;
+      }
+
+      .points-box.compact {
+        grid-template-columns: minmax(0, 1fr) 12mm;
+      }
+
+      .points-box.compact .block-title {
+        font-size: 6.2pt;
+      }
+
+      .points-box input {
+        min-height: 7mm;
+        border-left-width: 0.35mm;
+        font-size: 11pt;
+      }
+
+      .complications textarea {
+        min-height: 20mm;
+        padding: 1.2mm;
+        font-size: 7pt;
+      }
+
+      .sheet-pp-badge {
+        min-width: 20mm;
+        padding: 1mm 1.5mm;
+        border-width: 0.35mm;
+        border-radius: 1.2mm;
+        font-size: 7pt;
+      }
+
+      .pp-limit-warning {
+        padding: 1mm;
+        border-width: 0.35mm;
+        font-size: 6.5pt;
+      }
+
+      .sheet-main-grid {
+        grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr) minmax(0, 0.94fr);
+        gap: 2.2mm;
+        align-items: start;
+      }
+
+      .section-title {
+        min-height: 5.5mm;
+        gap: 1mm;
+        padding: 0.8mm 1.2mm;
+        border-top-width: 0.35mm;
+        border-bottom-width: 0.35mm;
+      }
+
+      .section-title strong {
+        font-size: 8pt;
+      }
+
+      .section-title small {
+        font-size: 6pt;
+      }
+
+      .section-actions {
+        gap: 1mm;
+      }
+
+      .abilities-panel {
+        gap: 2mm;
+      }
+
+      .abilities-grid {
+        gap: 1mm;
+        padding: 1mm;
+      }
+
+      .ability-card {
+        min-height: 21mm;
+        grid-template-rows: 5mm 7mm minmax(8mm, 1fr);
+        border-width: 0.35mm;
+        border-radius: 1.5mm;
+      }
+
+      .ability-name {
+        min-height: 5mm;
+        font-size: 9.5pt;
+      }
+
+      .ability-card input {
+        border-bottom-width: 0.35mm;
+        font-size: 11pt;
+      }
+
+      .ability-note {
+        padding: 0.7mm;
+        font-size: 5.4pt;
+        line-height: 1.05;
+      }
+
+      .table-head {
+        min-height: 4.8mm;
+        font-size: 6.2pt;
+      }
+
+      .table-head span {
+        padding: 0.7mm 1mm;
+        border-right-width: 0.2mm;
+      }
+
+      .sheet-table-row {
+        min-height: 4.6mm;
+      }
+
+      .sheet-table-row input,
+      .sheet-table-row textarea {
+        min-height: 4.6mm;
+        padding: 0.5mm 1mm;
+        border-right-width: 0.2mm;
+        font-size: 6.6pt;
+      }
+
+      .skills-grid,
+      .advantages-grid {
+        grid-template-columns: minmax(0, 1fr) 10mm 10mm;
+      }
+
+      .attacks-grid {
+        grid-template-columns: minmax(0, 1fr) 10mm 10mm minmax(23mm, 0.85fr);
+      }
+
+      .powers-section {
+        gap: 1.5mm;
+        break-inside: avoid;
+      }
+
+      .powers-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2mm;
+      }
+
+      .power-card {
+        border-radius: 2mm;
+      }
+
+      .power-name-line {
+        grid-template-columns: minmax(0, 1fr) 13mm;
+      }
+
+      .power-field {
+        gap: 0.3mm;
+        padding: 0.8mm 1mm;
+        border-right-width: 0.2mm;
+      }
+
+      .power-label {
+        font-size: 5.2pt;
+      }
+
+      .power-field input {
+        min-height: 4.3mm;
+        font-size: 6.8pt;
+      }
+
+      .power-meta {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        border-top-width: 0.2mm;
+      }
+
+      .power-card textarea {
+        min-height: 15mm;
+        padding: 1mm;
+        border-top-width: 0.35mm;
+        font-size: 6.6pt;
+        line-height: 1.12;
+      }
+
+      .health-grid {
+        grid-template-columns: 42mm minmax(0, 1fr);
+        gap: 2mm;
+        padding: 1.2mm;
+      }
+
+      .hits-notes {
+        grid-template-columns: 13mm minmax(0, 1fr);
+        gap: 1mm;
+      }
+
+      .hits-box input {
+        font-size: 14pt;
+      }
+
+      .notes-box textarea {
+        padding: 1mm;
+        font-size: 6.6pt;
+      }
+
+      .health-condition-stack {
+        gap: 1.5mm;
+      }
+
+      .health-subtitle {
+        min-height: 5mm;
+        padding: 0.7mm 1mm;
+        border-width: 0.35mm;
+        border-radius: 1.2mm;
+        font-size: 7pt;
+      }
+
+      .conditions-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1mm;
+      }
+
+      .condition-toggle {
+        min-height: 18mm;
+      }
+
+      .condition-toggle strong {
+        padding: 0.7mm 0.5mm;
+        font-size: 7pt;
+      }
+
+      .condition-toggle span {
+        padding: 0.7mm;
+        font-size: 5.3pt;
+        line-height: 1.05;
+      }
+
+      .condition-toggle.selected {
+        box-shadow: inset 0 0 0 1mm rgba(187, 31, 36, 0.18);
+      }
+
+      .bottom-grid {
+        grid-template-columns: 42mm minmax(0, 1fr);
+        gap: 2.2mm;
+      }
+
+      .defense-list {
+        gap: 1mm;
+        padding: 1.2mm;
+      }
+
+      .defense-row {
+        grid-template-columns: 18mm 9mm minmax(0, 1fr);
+        min-height: 6mm;
+        gap: 0.8mm;
+      }
+
+      .defense-label {
+        border-radius: 1mm 0 0 1mm;
+        font-size: 6.2pt;
+      }
+
+      .defense-row input {
+        border-width: 0.35mm;
+        border-radius: 1mm;
+        font-size: 7pt;
+      }
+
+      .defense-class-field::before {
+        font-size: 6.5pt;
+      }
+
+      .offense-area {
+        grid-template-columns: minmax(0, 1fr) 18mm;
+        gap: 1.5mm;
+      }
+
+      .initiative-box input {
+        min-height: 25mm;
+        font-size: 14pt;
+      }
+
+      .sheet-footer {
+        padding-top: 1.5mm;
+        border-top-width: 1.6mm;
+        font-size: 5.8pt;
+      }
+
+      .logo-text {
+        font-size: 9pt;
+      }
+
+      .panel,
+      .power-card,
+      .black-box,
+      .condition-toggle {
+        break-inside: avoid;
+      }
+
+      .sheet input,
+      .sheet textarea {
+        background: transparent !important;
+        box-shadow: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="highlight-fields">
+  <header class="toolbar">
+    <div class="brand">
+      <strong>Jujutsu Kaisen</strong>
+      <span>Ficha editável</span>
+      <span class="pp-total" data-pp-total>PP 0</span>
+    </div>
+    <nav class="nav-tabs" aria-label="Seções da ficha">
+      <button class="active" type="button" data-screen-target="sheet">Ficha</button>
+      <button type="button" data-screen-target="skills">Perícias</button>
+      <button type="button" data-screen-target="advantages">Vantagens</button>
+      <button type="button" data-screen-target="powers">Poderes</button>
+    </nav>
+    <div class="actions">
+      <button class="primary" type="button" data-action="export-pdf">Exportar PDF</button>
+      <button type="button" data-action="print">Imprimir</button>
+      <button type="button" data-action="export-data">Baixar dados</button>
+      <button type="button" data-action="import">Importar dados</button>
+      <button type="button" data-action="clear">Limpar</button>
+      <label class="toggle">
+        <input type="checkbox" data-action="highlight" checked>
+        Realçar campos
+      </label>
+      <span class="status" data-status>Salvo</span>
+      <input type="file" accept="application/json,.json" data-import-file>
+    </div>
+  </header>
+
+  <main class="stage view active" data-screen="sheet">
+    <form class="sheet" data-sheet autocomplete="off">
+      <section class="sheet-top">
+        <div class="identity-grid">
+          <label class="line-field feiticeiro-field wide">
+            <span>feiticeiro</span>
+            <input name="feiticeironame" type="text" data-label="feiticeiro Name">
+          </label>
+          <label class="line-field half">
+            <span>Jogador</span>
+            <input name="player" type="text" data-label="Player">
+          </label>
+          <label class="line-field">
+            <span>Altura</span>
+            <input name="height" type="text" data-label="Height">
+          </label>
+          <label class="line-field">
+            <span>Peso</span>
+            <input name="weight" type="text" data-label="Weight">
+          </label>
+          <label class="line-field">
+            <span>Olhos</span>
+            <input name="eyes" type="text" data-label="Eyes">
+          </label>
+          <label class="line-field">
+            <span>Cabelo</span>
+            <input name="hair" type="text" data-label="Hair">
+          </label>
+          <label class="line-field wide">
+            <span>Aparencia</span>
+            <input name="appearance" type="text" data-label="Appearance">
+          </label>
+        </div>
+
+        <aside class="sheet-side">
+          <div class="sheet-side-row">
+            <div class="points-box compact">
+              <div class="block-title">Nível</div>
+              <input name="level" type="text" inputmode="numeric" value="1" data-label="Nível">
+            </div>
+            <div class="points-box compact">
+              <div class="block-title">Pontos Heroicos</div>
+              <input name="feiticeiropoints" type="text" inputmode="numeric" data-label="feiticeiro Points">
+            </div>
+          </div>
+          <div class="black-box complications">
+            <div class="block-title">Complicações <small>pg 31</small></div>
+            <textarea name="complications" data-label="Complications"></textarea>
+          </div>
+          <output class="sheet-pp-badge" data-sheet-pp>PP 0</output>
+          <output class="pp-limit-warning" data-pp-warning aria-live="polite"></output>
+        </aside>
+      </section>
+
+      <section class="sheet-main-grid">
+        <div class="abilities-panel">
+          <section class="panel">
+            <div class="section-title"><strong>Habilidades Fisicas</strong><small>pg 37</small></div>
+            <div class="abilities-grid">
+              <label class="ability-card">
+                <span class="ability-name">FOR</span>
+                <input name="str" type="text" inputmode="numeric" data-label="STR">
+                <span class="ability-note">Dano corpo a corpo</span>
+              </label>
+              <label class="ability-card">
+                <span class="ability-name">VIG</span>
+                <input name="sta" type="text" inputmode="numeric" data-label="STA">
+                <span class="ability-note">Defesas Fortitude e Resiliencia</span>
+              </label>
+              <label class="ability-card">
+                <span class="ability-name">AGI</span>
+                <input name="agl" type="text" inputmode="numeric" data-label="AGL">
+                <span class="ability-note">Defesa Esquiva e bônus de iniciativa</span>
+              </label>
+              <label class="ability-card">
+                <span class="ability-name">DES</span>
+                <input name="dex" type="text" inputmode="numeric" data-label="DEX">
+                <span class="ability-note">Ataques a distancia</span>
+              </label>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="section-title"><strong>Abilidades mentais</strong><small>pg 37</small></div>
+            <div class="abilities-grid">
+              <label class="ability-card">
+                <span class="ability-name">LUT</span>
+                <input name="fgt" type="text" inputmode="numeric" data-label="FGT">
+                <span class="ability-note">Ataques corpo a corpo e Defesa Aparar</span>
+              </label>
+              <label class="ability-card">
+                <span class="ability-name">INT</span>
+                <input name="int" type="text" inputmode="numeric" data-label="INT">
+                <span class="ability-note">Testes de inteligência</span>
+              </label>
+              <label class="ability-card">
+                <span class="ability-name">AWE</span>
+                <input name="awe" type="text" inputmode="numeric" data-label="AWE">
+                <span class="ability-note">Defesa Vontade</span>
+              </label>
+              <label class="ability-card">
+                <span class="ability-name">PRE</span>
+                <input name="pre" type="text" inputmode="numeric" data-label="PRE">
+                <span class="ability-note">Testes de presença</span>
+              </label>
+            </div>
+          </section>
+        </div>
+
+        <section class="panel">
+          <div class="section-title">
+            <strong>Perícias</strong>
+            <div class="section-actions">
+              <small>pg 38</small>
+              <button class="mini-button" type="button" data-action="add-sheet-row" data-group="skills">+ linha</button>
+            </div>
+          </div>
+          <div class="sheet-table">
+            <div class="table-head skills-grid">
+              <span>Perícias</span>
+              <span>Graduações</span>
+              <span>Total</span>
+            </div>
+            <div data-sheet-rows="skills"></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section-title">
+            <strong>Vantagens</strong>
+            <div class="section-actions">
+              <small>pg 42</small>
+              <button class="mini-button" type="button" data-action="add-sheet-row" data-group="advantages">+ linha</button>
+            </div>
+          </div>
+          <div class="sheet-table">
+            <div class="table-head advantages-grid">
+              <span>Vantagens</span>
+              <span>Graduações</span>
+              <span>Custo</span>
+            </div>
+            <div data-sheet-rows="advantages"></div>
+          </div>
+        </section>
+      </section>
+
+      <section class="powers-section">
+        <div class="section-title">
+          <strong>Tecnicas amaldiçoadas</strong>
+          <div class="section-actions">
+            <small>pg 48</small>
+            <button class="mini-button" type="button" data-action="add-sheet-row" data-group="powers">+ espaço</button>
+          </div>
+        </div>
+        <div class="powers-grid" data-sheet-rows="powers"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title"><strong>Saúde e Energia amaldiçoada</strong></div>
+        <div class="health-grid">
+          <div class="hits-notes">
+            <div class="black-box hits-box">
+              <div class="block-title">Feridas</div>
+              <input name="hits" type="text" data-label="Hits">
+            </div>
+            <div class="black-box notes-box">
+              <div class="block-title">Anotaçoes</div>
+              <textarea name="notes" data-label="Notes"></textarea>
+            </div>
+          </div>
+
+          <div class="health-condition-stack">
+            <div class="conditions-grid">
+              <button class="condition-toggle" type="button" data-condition="hit" aria-pressed="false">
+                <strong>Ferido</strong>
+                <span>Falha de 1-5<br>Penalidade cumulativa de -1 em Fortitude</span>
+              </button>
+              <button class="condition-toggle" type="button" data-condition="dazed" aria-pressed="false">
+                <strong>Tonto</strong>
+                <span>Falha de 6-10<br>Penalidade cumulativa de -1 em Fortitude<br>Não pode agir até o próximo turno</span>
+              </button>
+              <button class="condition-toggle" type="button" data-condition="staggered" aria-pressed="false">
+                <strong>Atordoado</strong>
+                <span>Falha de 11-15<br>Penalidade cumulativa de -1 em Fortitude<br>Não pode agir e se mover no mesmo turno</span>
+              </button>
+              <button class="condition-toggle" type="button" data-condition="incap" aria-pressed="false">
+                <strong>Incapacitado</strong>
+                <span>Falha de 15+<br>Completamente incapaz</span>
+              </button>
+            </div>
+
+            <div class="spiritual-energy-block">
+              <div class="health-subtitle">Energia Espiritual</div>
+              <div class="conditions-grid">
+                <button class="condition-toggle" type="button" data-condition="spiritual-energy-1" aria-pressed="false">
+                  <strong>Fadigado</strong>
+                  <span>Falha de 1-5<br>Penalidade cumulativa de -1 em Vontade</span>
+                </button>
+                <button class="condition-toggle" type="button" data-condition="spiritual-energy-2" aria-pressed="false">
+                  <strong>Cansado</strong>
+                  <span>Falha de 6-10<br>Penalidade cumulativa de -1 em Vontade</span>
+                </button>
+                <button class="condition-toggle" type="button" data-condition="spiritual-energy-3" aria-pressed="false">
+                  <strong>Exausto</strong>
+                  <span>Falha de 11-15<br>Penalidade cumulativa de -1 em Vontade</span>
+                </button>
+                <button class="condition-toggle" type="button" data-condition="spiritual-energy-4" aria-pressed="false">
+                  <strong>Esgotado</strong>
+                  <span>Falha de 15+<br>Não pode mais usar tecnicas amaldiçoadas</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bottom-grid">
+        <section class="panel">
+          <div class="section-title"><strong>Defesas</strong></div>
+          <div class="defense-list">
+            <label class="defense-row">
+              <span class="defense-label">Dureza</span>
+              <input name="toughness" type="text" inputmode="numeric" data-label="Toughness">
+              <span class="defense-class-field"><input name="toughness-class" type="text" inputmode="numeric" data-label="Toughness Class"></span>
+            </label>
+            <label class="defense-row">
+              <span class="defense-label">Esquiva</span>
+              <input name="dodge" type="text" inputmode="numeric" data-label="Dodge">
+              <span class="defense-class-field"><input name="dodge-class" type="text" inputmode="numeric" data-label="Dodge Class"></span>
+            </label>
+            <label class="defense-row">
+              <span class="defense-label">Aparar</span>
+              <input name="parry" type="text" inputmode="numeric" data-label="Parry">
+              <span class="defense-class-field"><input name="parry-class" type="text" inputmode="numeric" data-label="Parry Class"></span>
+            </label>
+            <label class="defense-row">
+              <span class="defense-label">Fortitude</span>
+              <input name="fortitude" type="text" inputmode="numeric" data-label="Fortitude">
+              <span class="defense-class-field"><input name="fortitude-class" type="text" inputmode="numeric" data-label="Fortitude Class"></span>
+            </label>
+            <label class="defense-row">
+              <span class="defense-label">Vontade</span>
+              <input name="will" type="text" inputmode="numeric" data-label="Will">
+              <span class="defense-class-field"><input name="will-class" type="text" inputmode="numeric" data-label="Will Class"></span>
+            </label>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-title">
+            <strong>Ataques</strong>
+            <button class="mini-button" type="button" data-action="add-sheet-row" data-group="attacks">+ linha</button>
+          </div>
+          <div class="offense-area">
+            <div class="panel">
+              <div class="sheet-table">
+                <div class="table-head attacks-grid">
+                  <span>Ataque</span>
+                  <span>Mod</span>
+                  <span>Save</span>
+                  <span>Efeito</span>
+                </div>
+                <div data-sheet-rows="attacks"></div>
+              </div>
+            </div>
+            <div class="black-box initiative-box">
+              <div class="block-title">Inciativa</div>
+              <input name="initiative" type="text" inputmode="numeric" data-label="Initiative">
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <footer class="sheet-footer">
+        <span>Permission is granted to reproduce this page for personal use only.</span>
+        <span class="logo-text">Jujutsu Kaisen</span>
+      </footer>
+    </form>
+  </main>
+
+  <section class="library-view view" data-screen="skills">
+    <div class="view-head">
+      <div>
+        <h1>Perícias</h1>
+        <p>Lista resumida das páginas 61-75. Abra uma perícia para adicionar graduações à ficha.</p>
+      </div>
+      <input class="search-input" type="search" placeholder="Buscar perícia" data-skill-search>
+    </div>
+    <div class="library-list" data-skills-list></div>
+  </section>
+
+  <section class="library-view view" data-screen="advantages">
+    <div class="view-head">
+      <div>
+        <h1>Vantagens</h1>
+        <p>Lista resumida por nome e categoria. Abra uma vantagem para adicionar graduação e custo à ficha.</p>
+      </div>
+      <input class="search-input" type="search" placeholder="Buscar vantagem" data-advantage-search>
+    </div>
+    <div class="library-list" data-advantages-list></div>
+  </section>
+
+  <section class="power-view view" data-screen="powers">
+    <div class="view-head">
+      <div>
+        <h1>Criação de Poder</h1>
+        <p>Escolha o efeito, graduações e modificadores. O custo é calculado automaticamente.</p>
+      </div>
+      <button class="primary" type="button" data-action="add-built-power">Adicionar poder à ficha</button>
+    </div>
+
+    <div class="builder-layout">
+      <div class="builder-card">
+        <h2>Poder</h2>
+        <div class="builder-grid">
+          <label class="wide">
+            Nome do poder
+            <input type="text" data-power-name placeholder="Ex.: Rajada solar">
+          </label>
+          <label class="wide">
+            Efeito base
+            <select data-power-effect></select>
+          </label>
+          <label>
+            Graduação
+            <input type="number" min="0" step="1" value="1" data-power-rank>
+          </label>
+          <label>
+            Custo base/graduação
+            <input type="number" min="0" step="1" data-power-base>
+          </label>
+          <label class="wide">
+            Descritores e observações
+            <textarea rows="3" data-power-notes placeholder="Origem, meio, resultado, limitações narrativas..."></textarea>
+          </label>
+        </div>
+        <div class="power-summary" data-power-summary></div>
+        <div class="cost-box">
+          <span>Custo calculado</span>
+          <strong data-power-cost>0 PP</strong>
+          <small data-power-formula></small>
+        </div>
+      </div>
+
+      <div class="builder-card">
+        <h2>Modificadores</h2>
+        <div class="modifier-tools">
+          <input class="search-input" type="search" placeholder="Buscar modificador" data-modifier-search>
+        </div>
+        <div class="modifier-list" data-modifier-list></div>
+      </div>
+    </div>
+
+    <div class="builder-card" style="margin-top:14px">
+      <h2>Tecnicas criados</h2>
+      <div class="built-list" data-built-powers></div>
+    </div>
+  </section>
+
+  <script src="assets/mnm-data.js"></script>
+  <script>
+    const STORAGE_KEY = "mnm-character-sheet-v1";
+    const DEFAULT_ROW_COUNTS = {
+      skills: 12,
+      advantages: 12,
+      powers: 2,
+      attacks: 4,
+    };
+    const LEGACY_DEFAULT_ROW_COUNTS = {
+      skills: 18,
+      advantages: 18,
+      powers: 8,
+    };
+    const rowCounts = { ...DEFAULT_ROW_COUNTS };
+    const DYNAMIC_GROUPS = {
+      skills: { rows: [] },
+      advantages: { rows: [] },
+      powers: { rows: [] },
+      attacks: { rows: [] },
+    };
+    const DEFENSE_PAIRS = [
+      ["toughness", "toughness-class"],
+      ["dodge", "dodge-class"],
+      ["parry", "parry-class"],
+      ["fortitude", "fortitude-class"],
+      ["will", "will-class"],
+    ];
+    const DATA = window.MNM_DATA || { skills: [], advantages: [], powers: [], modifiers: [], powerModifiers: {}, powerModifierAliases: {} };
+    const ABILITY_KEYS = ["str", "sta", "agl", "dex", "fgt", "int", "awe", "pre"];
+    const DEFENSE_BASES = [
+      ["dodge", "agl"],
+      ["parry", "fgt"],
+      ["fortitude", "sta"],
+      ["will", "awe"],
+    ];
+
+    const sheet = document.querySelector("[data-sheet]");
+    const statusEl = document.querySelector("[data-status]");
+    const fileInput = document.querySelector("[data-import-file]");
+    const ppTotalEl = document.querySelector("[data-pp-total]");
+    const sheetPpEl = document.querySelector("[data-sheet-pp]");
+    const ppWarningEl = document.querySelector("[data-pp-warning]");
+    const skillSearch = document.querySelector("[data-skill-search]");
+    const skillsList = document.querySelector("[data-skills-list]");
+    const advantageSearch = document.querySelector("[data-advantage-search]");
+    const advantagesList = document.querySelector("[data-advantages-list]");
+    const powerEffectSelect = document.querySelector("[data-power-effect]");
+    const powerNameInput = document.querySelector("[data-power-name]");
+    const powerRankInput = document.querySelector("[data-power-rank]");
+    const powerBaseInput = document.querySelector("[data-power-base]");
+    const powerNotesInput = document.querySelector("[data-power-notes]");
+    const powerSummary = document.querySelector("[data-power-summary]");
+    const powerCost = document.querySelector("[data-power-cost]");
+    const powerFormula = document.querySelector("[data-power-formula]");
+    const modifierList = document.querySelector("[data-modifier-list]");
+    const modifierSearchInput = document.querySelector("[data-modifier-search]");
+    const builtPowersList = document.querySelector("[data-built-powers]");
+
+    const fieldMap = new Map();
+    const conditionButtons = new Map();
+    const selectedConditions = new Set();
+    const advantagePurchases = {};
+    let builtPowers = [];
+    let currentModifierOptions = [];
+    let nextMigrationId = 1;
+    let statusTimer;
+
+    function setStatus(text) {
+      statusEl.textContent = text;
+      clearTimeout(statusTimer);
+      statusTimer = setTimeout(() => {
+        statusEl.textContent = "Salvo";
+      }, 1400);
+    }
+
+    function normalizeText(value) {
+      return String(value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
+    }
+
+    function integerValue(value, fallback = 0) {
+      const parsed = Number.parseInt(value, 10);
+      return Number.isFinite(parsed) ? parsed : fallback;
+    }
+
+    function decimalValue(value, fallback = 0) {
+      const parsed = Number.parseFloat(String(value ?? "").replace(",", "."));
+      return Number.isFinite(parsed) ? parsed : fallback;
+    }
+
+    function formatCostValue(value) {
+      const normalized = Math.round(decimalValue(value, 0) * 100) / 100;
+      return Number.isInteger(normalized) ? String(normalized) : String(normalized);
+    }
+
+    function numberValue(key) {
+      return integerValue(fieldMap.get(key)?.value, 0);
+    }
+
+    function refreshDynamicGroups() {
+      DYNAMIC_GROUPS.skills.rows = Array.from({ length: rowCounts.skills }, (_, index) => [
+        `skill-${index + 1}`,
+        `ranks-${index + 1}`,
+        `total-${index + 1}`,
+      ]);
+      DYNAMIC_GROUPS.advantages.rows = Array.from({ length: rowCounts.advantages }, (_, index) => [
+        `advantage-${index + 1}`,
+        `advantage-rank-${index + 1}`,
+        `pg-${index + 1}`,
+      ]);
+      DYNAMIC_GROUPS.powers.rows = Array.from({ length: rowCounts.powers }, (_, index) => [
+        `power-effect-${index + 1}`,
+        `type-${index + 1}`,
+        `action-${index + 1}`,
+        `range-${index + 1}`,
+        `duration-${index + 1}`,
+        `power-cost-${index + 1}`,
+        `power-effect-notes-${index + 1}`,
+      ]);
+      DYNAMIC_GROUPS.attacks.rows = Array.from({ length: rowCounts.attacks }, (_, index) => [
+        `attack-${index + 1}`,
+        `bonus-${index + 1}`,
+        `save-${index + 1}`,
+        `effect-${index + 1}`,
+      ]);
+    }
+
+    function rowTemplate(groupKey, index) {
+      if (groupKey === "skills") {
+        return `
+          <div class="sheet-table-row skills-grid">
+            <input name="skill-${index}" type="text" data-label="Skill ${index}">
+            <input class="small-number" name="ranks-${index}" type="text" inputmode="numeric" data-label="Ranks ${index}">
+            <input class="small-number" name="total-${index}" type="text" inputmode="numeric" data-label="Total ${index}">
+          </div>
+        `;
+      }
+
+      if (groupKey === "advantages") {
+        return `
+          <div class="sheet-table-row advantages-grid">
+            <input name="advantage-${index}" type="text" data-label="Advantage ${index}">
+            <input class="small-number" name="advantage-rank-${index}" type="text" inputmode="numeric" data-label="Rank ${index}">
+            <input class="small-number" name="pg-${index}" type="text" inputmode="numeric" data-label="Cost ${index}">
+          </div>
+        `;
+      }
+
+      if (groupKey === "powers") {
+        return `
+          <article class="power-card">
+            <div class="power-name-line">
+              <label class="power-field">
+                <span class="power-label">Power / Effect</span>
+                <input name="power-effect-${index}" type="text" data-label="Power Effect ${index}">
+              </label>
+              <label class="power-field">
+                <span class="power-label">Cost</span>
+                <input class="small-number" name="power-cost-${index}" type="text" inputmode="numeric" data-label="Power Cost ${index}">
+              </label>
+            </div>
+            <div class="power-meta">
+              <label class="power-field">
+                <span class="power-label">Type</span>
+                <input name="type-${index}" type="text" data-label="Type ${index}">
+              </label>
+              <label class="power-field">
+                <span class="power-label">Action</span>
+                <input name="action-${index}" type="text" data-label="Action ${index}">
+              </label>
+              <label class="power-field">
+                <span class="power-label">Range</span>
+                <input name="range-${index}" type="text" data-label="Range ${index}">
+              </label>
+              <label class="power-field">
+                <span class="power-label">Duration</span>
+                <input name="duration-${index}" type="text" data-label="Duration ${index}">
+              </label>
+            </div>
+            <textarea name="power-effect-notes-${index}" data-label="Power Notes ${index}"></textarea>
+          </article>
+        `;
+      }
+
+      return `
+        <div class="sheet-table-row attacks-grid">
+          <input name="attack-${index}" type="text" data-label="Attack ${index}">
+          <input class="small-number" name="bonus-${index}" type="text" inputmode="numeric" data-label="Bonus ${index}">
+          <input class="small-number" name="save-${index}" type="text" inputmode="numeric" data-label="Save ${index}">
+          <input name="effect-${index}" type="text" data-label="Effect ${index}">
+        </div>
+      `;
+    }
+
+    function renderGroupRows(groupKey, startIndex = 1, endIndex = rowCounts[groupKey]) {
+      const container = document.querySelector(`[data-sheet-rows="${groupKey}"]`);
+      if (!container) {
+        return;
+      }
+      if (startIndex === 1) {
+        container.innerHTML = "";
+      }
+      let html = "";
+      for (let index = startIndex; index <= endIndex; index += 1) {
+        html += rowTemplate(groupKey, index);
+      }
+      container.insertAdjacentHTML("beforeend", html);
+    }
+
+    function renderInitialRows() {
+      refreshDynamicGroups();
+      Object.keys(DYNAMIC_GROUPS).forEach((groupKey) => renderGroupRows(groupKey));
+    }
+
+    function registerField(field) {
+      if (field.dataset.bound === "true") {
+        return;
+      }
+      const label = field.dataset.label || field.name;
+      field.setAttribute("aria-label", label);
+      field.setAttribute("title", label);
+      if (/^(str|sta|agl|dex|fgt|int|awe|pre|level|feiticeiropoints|initiative)$/.test(field.name)) {
+        field.classList.add("small-number");
+      }
+      if (/^pg-/.test(field.name)) {
+        field.classList.add("small-number");
+        field.inputMode = "decimal";
+      } else if (/^(ranks|total|bonus|save|advantage-rank|power-cost)-/.test(field.name) || DEFENSE_PAIRS.flat().includes(field.name)) {
+        field.classList.add("small-number");
+        field.inputMode = "numeric";
+      }
+      field.addEventListener("input", () => {
+        syncAdvantageCostField(field.name);
+        updateDefenseClasses(field.name);
+        updateSkillTotals();
+        calculatePowerPoints();
+        save();
+      });
+      field.dataset.bound = "true";
+    }
+
+    function hydrateFields() {
+      fieldMap.clear();
+      sheet.querySelectorAll("input[name], textarea[name]").forEach((field) => {
+        registerField(field);
+        fieldMap.set(field.name, field);
+      });
+    }
+
+    function registerConditionButtons() {
+      sheet.querySelectorAll("[data-condition]").forEach((button) => {
+        if (button.dataset.bound === "true") {
+          return;
+        }
+        const key = button.dataset.condition;
+        button.addEventListener("click", () => toggleCondition(key));
+        button.dataset.bound = "true";
+        conditionButtons.set(key, button);
+      });
+    }
+
+    function addSheetRow(groupKey, shouldSave = true) {
+      if (!Object.prototype.hasOwnProperty.call(rowCounts, groupKey)) {
+        return null;
+      }
+      const nextIndex = rowCounts[groupKey] + 1;
+      rowCounts[groupKey] = nextIndex;
+      refreshDynamicGroups();
+      renderGroupRows(groupKey, nextIndex, nextIndex);
+      hydrateFields();
+      if (shouldSave) {
+        save();
+        setStatus("+Linha");
+      }
+      return DYNAMIC_GROUPS[groupKey].rows[nextIndex - 1];
+    }
+
+    function ensureRowCount(groupKey, count) {
+      if (!Object.prototype.hasOwnProperty.call(rowCounts, groupKey)) {
+        return;
+      }
+      const renderedCount = DYNAMIC_GROUPS[groupKey]?.rows.length || 0;
+      if (count <= renderedCount) {
+        rowCounts[groupKey] = Math.max(rowCounts[groupKey], count);
+        refreshDynamicGroups();
+        return;
+      }
+      const startIndex = renderedCount + 1;
+      rowCounts[groupKey] = count;
+      refreshDynamicGroups();
+      renderGroupRows(groupKey, startIndex, count);
+      hydrateFields();
+    }
+
+    function maxIndexedKey(data, pattern) {
+      return Object.keys(data || {}).reduce((max, key) => {
+        const match = key.match(pattern);
+        return match ? Math.max(max, integerValue(match[1], 0)) : max;
+      }, 0);
+    }
+
+    function maxFilledIndexedKey(data, pattern) {
+      return Object.keys(data || {}).reduce((max, key) => {
+        const match = key.match(pattern);
+        if (!match || !String(data[key] ?? "").trim()) {
+          return max;
+        }
+        return Math.max(max, integerValue(match[1], 0));
+      }, 0);
+    }
+
+    function storedRowCount(groupKey, counts, filledMax) {
+      const count = integerValue(counts[groupKey], 0);
+      if (count === LEGACY_DEFAULT_ROW_COUNTS[groupKey] && filledMax <= DEFAULT_ROW_COUNTS[groupKey]) {
+        return 0;
+      }
+      return count;
+    }
+
+    function maxBuiltPowerRow(data) {
+      return (Array.isArray(data?._builtPowers) ? data._builtPowers : []).reduce((max, power) => {
+        const match = String(power.rowKey || "").match(/^power-effect-(\d+)$/);
+        return match ? Math.max(max, integerValue(match[1], 0)) : max;
+      }, 0);
+    }
+
+    function primeRowCounts(data = {}) {
+      const counts = data?._rowCounts || data?._visibleCounts || {};
+      const overflow = data?._overflowEntries || {};
+      const skillFilledMax = Math.max(
+        maxFilledIndexedKey(data, /^skill-(\d+)$/),
+        maxFilledIndexedKey(data, /^ranks-(\d+)$/),
+        maxFilledIndexedKey(data, /^total-(\d+)$/),
+      );
+      const advantageFilledMax = Math.max(
+        maxFilledIndexedKey(data, /^advantage-(\d+)$/),
+        maxFilledIndexedKey(data, /^advantage-rank-(\d+)$/),
+        maxFilledIndexedKey(data, /^pg-(\d+)$/),
+      );
+      const powerFilledMax = Math.max(
+        maxFilledIndexedKey(data, /^power-effect-(\d+)$/),
+        maxFilledIndexedKey(data, /^type-(\d+)$/),
+        maxFilledIndexedKey(data, /^action-(\d+)$/),
+        maxFilledIndexedKey(data, /^range-(\d+)$/),
+        maxFilledIndexedKey(data, /^duration-(\d+)$/),
+        maxFilledIndexedKey(data, /^power-cost-(\d+)$/),
+        maxFilledIndexedKey(data, /^power-effect-notes-(\d+)$/),
+        maxBuiltPowerRow(data),
+      );
+      const skillStoredCount = storedRowCount("skills", counts, skillFilledMax);
+      const advantageStoredCount = storedRowCount("advantages", counts, advantageFilledMax);
+      const powerStoredCount = storedRowCount("powers", counts, powerFilledMax);
+
+      rowCounts.skills = Math.max(
+        rowCounts.skills,
+        DEFAULT_ROW_COUNTS.skills,
+        skillStoredCount,
+        skillFilledMax,
+        (skillStoredCount || skillFilledMax) + (overflow.skills?.length || 0),
+      );
+      rowCounts.advantages = Math.max(
+        rowCounts.advantages,
+        DEFAULT_ROW_COUNTS.advantages,
+        advantageStoredCount,
+        advantageFilledMax,
+        (advantageStoredCount || advantageFilledMax) + (overflow.advantages?.length || 0),
+      );
+      rowCounts.powers = Math.max(
+        rowCounts.powers,
+        DEFAULT_ROW_COUNTS.powers,
+        powerStoredCount,
+        powerFilledMax,
+        (powerStoredCount || powerFilledMax) + (overflow.powers?.length || 0),
+      );
+      rowCounts.attacks = Math.max(
+        rowCounts.attacks,
+        DEFAULT_ROW_COUNTS.attacks,
+        integerValue(counts.attacks, 0),
+        maxIndexedKey(data, /^attack-(\d+)$/),
+      );
+    }
+
+    function readStoredData() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (!stored) {
+        return null;
+      }
+      try {
+        return JSON.parse(stored);
+      } catch {
+        localStorage.removeItem(STORAGE_KEY);
+        return null;
+      }
+    }
+
+    function firstBlankIndex(data, keyPrefix) {
+      let index = 1;
+      while (String(data[`${keyPrefix}-${index}`] || "").trim()) {
+        index += 1;
+      }
+      return index;
+    }
+
+    function normalizeImportedData(source = {}) {
+      const data = { ...source };
+      if (!String(data.level ?? "").trim()) {
+        data.level = "1";
+      }
+
+      if (data["range-1-2"] && !data["range-4"]) {
+        data["range-4"] = data["range-1-2"];
+      }
+
+      const overflow = source?._overflowEntries || {};
+      (Array.isArray(overflow.skills) ? overflow.skills : []).forEach((skill) => {
+        const index = firstBlankIndex(data, "skill");
+        data[`skill-${index}`] = skill.displayName || skill.name || "";
+        data[`ranks-${index}`] = String(Math.max(0, integerValue(skill.ranks, 0)));
+      });
+
+      (Array.isArray(overflow.advantages) ? overflow.advantages : []).forEach((advantage) => {
+        const index = firstBlankIndex(data, "advantage");
+        data[`advantage-${index}`] = advantage.name || "";
+        data[`advantage-rank-${index}`] = String(Math.max(1, integerValue(advantage.ranks, 1)));
+        data[`pg-${index}`] = String(Math.max(0, integerValue(advantage.cost, advantage.ranks || 1)));
+      });
+
+      (Array.isArray(overflow.powers) ? overflow.powers : []).forEach((power) => {
+        const index = firstBlankIndex(data, "power-effect");
+        data[`power-effect-${index}`] = power.name || power.effect || "";
+        data[`type-${index}`] = power.type || "";
+        data[`action-${index}`] = power.action || "";
+        data[`range-${index}`] = power.range || "";
+        data[`duration-${index}`] = power.duration || "";
+        data[`power-cost-${index}`] = String(Math.max(0, integerValue(power.cost, 0)));
+        data[`power-effect-notes-${index}`] = power.notes || "";
+      });
+
+      return data;
+    }
+
+    function switchScreen(target) {
+      document.querySelectorAll("[data-screen]").forEach((screen) => {
+        screen.classList.toggle("active", screen.dataset.screen === target);
+      });
+      document.querySelectorAll("[data-screen-target]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.screenTarget === target);
+      });
+    }
+
+    function renderScreenNav() {
+      document.querySelectorAll("[data-screen-target]").forEach((button) => {
+        button.addEventListener("click", () => switchScreen(button.dataset.screenTarget));
+      });
+    }
+
+    function toggleCondition(key) {
+      if (selectedConditions.has(key)) {
+        selectedConditions.delete(key);
+      } else {
+        selectedConditions.add(key);
+      }
+      syncConditions();
+      save();
+    }
+
+    function syncConditions() {
+      conditionButtons.forEach((button, key) => {
+        const selected = selectedConditions.has(key);
+        button.classList.toggle("selected", selected);
+        button.setAttribute("aria-pressed", selected ? "true" : "false");
+      });
+    }
+
+    function syncAdvantageCostField(changedKey) {
+      const costMatch = changedKey.match(/^pg-(\d+)$/);
+      if (costMatch) {
+        fieldMap.get(changedKey).dataset.autoCost = "false";
+        return;
+      }
+
+      const rankMatch = changedKey.match(/^advantage-rank-(\d+)$/);
+      if (!rankMatch) {
+        return;
+      }
+
+      const costField = fieldMap.get(`pg-${rankMatch[1]}`);
+      if (!costField || costField.dataset.autoCost === "false") {
+        return;
+      }
+
+      const nameKey = `advantage-${rankMatch[1]}`;
+      const rank = Math.max(1, integerValue(fieldMap.get(changedKey)?.value, 1));
+      const purchase = advantagePurchases[nameKey];
+      const advantage = advantageForName(fieldMap.get(nameKey)?.value || purchase?.name || "");
+      const costRule = advantage?.[6] || purchase?.costRule;
+      const cost = calculateAdvantageCost({ ...purchase, costRule }, rank);
+      costField.value = formatCostValue(cost);
+      costField.dataset.autoCost = "true";
+      if (purchase) {
+        purchase.ranks = rank;
+        purchase.cost = cost;
+        purchase.costRule = costRule;
+      }
+    }
+
+    function renderSkills(filter = "") {
+      const query = normalizeText(filter);
+      skillsList.innerHTML = "";
+
+      DATA.skills
+        .filter(([, name, ability,,, trained, action, summary]) => {
+          const haystack = normalizeText(`${name} ${ability} ${trained ? "treinada" : ""} ${action} ${summary}`);
+          return !query || haystack.includes(query);
+        })
+        .forEach(([key, name, ability, abilityKey, page, trained, action, summary]) => {
+          const card = document.createElement("details");
+          card.className = "rule-card";
+          card.innerHTML = `
+            <summary><span>${name}</span><small>${ability}</small></summary>
+            <div class="rule-card-body">
+              <div class="rule-meta">
+                <span>p. ${page}</span>
+                <span>${trained ? "Apenas treinado" : "Sem treino ok"}</span>
+                <span>Ação: ${action}</span>
+              </div>
+              <p>${summary}</p>
+              <div class="add-row skill-add-row">
+                <input type="number" min="1" step="1" value="1" aria-label="Graduações de ${name}">
+                <input type="text" placeholder="Especialização opcional" aria-label="Especialização de ${name}">
+                <button type="button">Adicionar</button>
+              </div>
+            </div>
+          `;
+          card.querySelector("button").addEventListener("click", () => {
+            const inputs = card.querySelectorAll("input");
+            const ranks = Math.max(1, Number.parseInt(inputs[0].value, 10) || 1);
+            const specialty = inputs[1].value.trim();
+            addSkillToSheet({ key, name, abilityKey, page, ranks, specialty });
+          });
+          skillsList.appendChild(card);
+        });
+    }
+
+    function addSkillToSheet(skill) {
+      let rowIndex = DYNAMIC_GROUPS.skills.rows.findIndex(([fieldKey]) => !fieldMap.get(fieldKey)?.value.trim());
+      if (rowIndex === -1) {
+        addSheetRow("skills", false);
+        rowIndex = DYNAMIC_GROUPS.skills.rows.length - 1;
+      }
+
+      const [nameKey, ranksKey, totalKey] = DYNAMIC_GROUPS.skills.rows[rowIndex];
+      fieldMap.get(nameKey).value = skill.specialty ? `${skill.name}: ${skill.specialty}` : skill.name;
+      fieldMap.get(ranksKey).value = String(skill.ranks);
+      fieldMap.get(totalKey).value = String(skill.ranks + numberValue(skill.abilityKey));
+      calculatePowerPoints();
+      save();
+      setStatus("+Perícia");
+      switchScreen("sheet");
+    }
+
+    function skillForName(name) {
+      const normalized = normalizeText(name).split(":")[0].trim();
+      return DATA.skills.find(([, skillName]) => {
+        const base = normalizeText(skillName);
+        return normalized === base || normalized.startsWith(`${base} `);
+      });
+    }
+
+    function updateSkillTotals() {
+      DYNAMIC_GROUPS.skills.rows.forEach(([nameKey, ranksKey, totalKey]) => {
+        const name = fieldMap.get(nameKey)?.value || "";
+        const skill = skillForName(name);
+        if (!skill) {
+          return;
+        }
+
+        const totalField = fieldMap.get(totalKey);
+        if (totalField) {
+          totalField.value = String(Math.max(0, numberValue(ranksKey)) + numberValue(skill[3]));
+        }
+      });
+    }
+
+    function renderAdvantages(filter = "") {
+      const query = normalizeText(filter);
+      advantagesList.innerHTML = "";
+
+      DATA.advantages
+        .filter(([, name, category, page,, summary]) => {
+          const haystack = normalizeText(`${name} ${category} ${summary}`);
+          return !query || haystack.includes(query);
+        })
+        .forEach(([key, name, category, page, ranked, summary, costRule]) => {
+          const card = document.createElement("details");
+          card.className = "rule-card";
+          card.innerHTML = `
+            <summary><span>${name}</span><small>${category}</small></summary>
+            <div class="rule-card-body">
+              <div class="rule-meta">
+                <span>Fonte p. ${page}</span>
+                <span>${advantageCostLabel(ranked, costRule)}</span>
+              </div>
+              <p>${summary}</p>
+              <div class="add-row">
+                <input type="number" min="1" step="1" value="1" ${ranked ? "" : "disabled"} aria-label="Graduações de ${name}">
+                <button type="button">Adicionar</button>
+              </div>
+            </div>
+          `;
+          card.querySelector("button").addEventListener("click", () => {
+            const ranks = Math.max(1, Number.parseInt(card.querySelector("input").value, 10) || 1);
+            addAdvantageToSheet({ key, name, category, page, ranked, ranks, costRule });
+          });
+          advantagesList.appendChild(card);
+        });
+    }
+
+    function advantageForName(name) {
+      const normalized = normalizeText(name).split(":")[0].trim();
+      return DATA.advantages.find(([key, advantageName]) => {
+        const base = normalizeText(advantageName);
+        return normalizeText(key) === normalized || normalized === base || normalized.startsWith(`${base} `);
+      });
+    }
+
+    function advantageCostLabel(ranked, costRule) {
+      if (costRule?.label) {
+        return costRule.label;
+      }
+      return ranked ? "1 PP por graduação" : "1 PP";
+    }
+
+    function calculateAdvantageCost(advantage = {}, ranks = 1) {
+      const rule = advantage.costRule;
+      if (rule?.mode === "fixed") {
+        return Math.max(0, decimalValue(rule.amount, 0));
+      }
+      if (rule?.mode === "perRank") {
+        return Math.max(0, decimalValue(rule.amount, 1) * Math.max(1, ranks));
+      }
+      return Math.max(1, ranks);
+    }
+
+    function addAdvantageToSheet(advantage) {
+      let rowIndex = DYNAMIC_GROUPS.advantages.rows.findIndex(([fieldKey]) => !fieldMap.get(fieldKey)?.value.trim());
+      if (rowIndex === -1) {
+        addSheetRow("advantages", false);
+        rowIndex = DYNAMIC_GROUPS.advantages.rows.length - 1;
+      }
+
+      const [nameKey, rankKey, costKey] = DYNAMIC_GROUPS.advantages.rows[rowIndex];
+      const cost = calculateAdvantageCost(advantage, advantage.ranks);
+      fieldMap.get(nameKey).value = advantage.name;
+      fieldMap.get(rankKey).value = String(advantage.ranks);
+      fieldMap.get(costKey).value = formatCostValue(cost);
+      fieldMap.get(costKey).dataset.autoCost = "true";
+      advantagePurchases[nameKey] = {
+        key: advantage.key,
+        name: advantage.name,
+        ranks: advantage.ranks,
+        cost,
+        costRule: advantage.costRule,
+        page: advantage.page,
+      };
+      calculatePowerPoints();
+      save();
+      setStatus("+Vantagem");
+      switchScreen("sheet");
+    }
+
+    function renderPowerBuilder() {
+      powerEffectSelect.innerHTML = DATA.powers
+        .map(([name], index) => `<option value="${index}">${name}</option>`)
+        .join("");
+
+      renderModifierOptions();
+
+      [powerEffectSelect, powerNameInput, powerRankInput, powerBaseInput, powerNotesInput].forEach((input) => {
+        input.addEventListener("input", updatePowerBuilder);
+        input.addEventListener("change", updatePowerBuilder);
+      });
+      modifierSearchInput.addEventListener("input", () => applyModifierFilter());
+
+      powerEffectSelect.addEventListener("change", () => {
+        const effect = selectedEffect();
+        powerBaseInput.value = effect ? effect[6] : 1;
+        renderModifierOptions();
+        updatePowerBuilder();
+      });
+
+      const effect = selectedEffect();
+      powerBaseInput.value = effect ? effect[6] : 1;
+      updatePowerBuilder();
+    }
+
+    function modifierSourcesForEffect(effect) {
+      const name = effect?.[0];
+      if (!name) {
+        return [];
+      }
+      return [name, ...(DATA.powerModifierAliases?.[name] || [])];
+    }
+
+    function powerSpecificModifiers(effect) {
+      const seen = new Set();
+      return modifierSourcesForEffect(effect)
+        .flatMap((source) => DATA.powerModifiers?.[source] || [])
+        .filter((modifier) => {
+          const key = `${modifier[0]}|${modifier[1]}|${modifier[2]}|${modifier[3]}`;
+          if (seen.has(key)) {
+            return false;
+          }
+          seen.add(key);
+          return true;
+        });
+    }
+
+    function appendModifierRows(titleText, modifiers, kind, prefix) {
+      const rows = modifiers.filter(([modifierKind]) => modifierKind === kind);
+      if (!rows.length) {
+        return;
+      }
+      const section = document.createElement("div");
+      section.className = "modifier-section";
+      const title = document.createElement("h3");
+      title.textContent = titleText;
+      section.appendChild(title);
+
+      rows.forEach((modifier) => {
+        const [, name, type, value, summary] = modifier;
+        const optionIndex = currentModifierOptions.push(modifier) - 1;
+        const id = `mod-${prefix}-${kind}-${optionIndex}`;
+        const row = document.createElement("div");
+        const costLabel = modifierCostLabel(type, value);
+        row.className = `mod-control ${prefix === "specific" ? "specific-mod" : ""}`;
+        row.dataset.search = normalizeText(`${titleText} ${name} ${summary} ${costLabel}`);
+        row.innerHTML = `
+            <input id="${id}" type="checkbox" data-modifier-index="${optionIndex}">
+            <div>
+              <label for="${id}">${name}</label>
+              <p>${summary}</p>
+              <p><strong>${costLabel}</strong></p>
+            </div>
+            <input type="number" step="1" value="${defaultModifierAmount(type, value)}" aria-label="Valor de ${name}">
+          `;
+        row.querySelector("input[type='checkbox']").addEventListener("change", updatePowerBuilder);
+        row.querySelector("input[type='number']").addEventListener("input", updatePowerBuilder);
+        section.appendChild(row);
+      });
+      modifierList.appendChild(section);
+    }
+
+    function applyModifierFilter() {
+      const query = normalizeText(modifierSearchInput.value);
+      let visibleCount = 0;
+      modifierList.querySelectorAll(".modifier-section").forEach((section) => {
+        let sectionVisible = 0;
+        section.querySelectorAll(".mod-control").forEach((row) => {
+          const isVisible = !query || row.dataset.search.includes(query);
+          row.classList.toggle("is-hidden", !isVisible);
+          if (isVisible) {
+            sectionVisible += 1;
+            visibleCount += 1;
+          }
+        });
+        section.classList.toggle("is-hidden", sectionVisible === 0);
+      });
+
+      const empty = modifierList.querySelector("[data-modifier-empty]");
+      if (empty) {
+        empty.hidden = visibleCount > 0;
+      }
+    }
+
+    function renderModifierOptions() {
+      modifierList.innerHTML = "";
+      currentModifierOptions = [];
+      const effect = selectedEffect();
+      const specific = powerSpecificModifiers(effect);
+      const general = DATA.modifiers || [];
+
+      appendModifierRows("Extras do poder", specific, "extra", "specific");
+      appendModifierRows("Falhas do poder", specific, "flaw", "specific");
+      appendModifierRows("Extras gerais", general, "extra", "general");
+      appendModifierRows("Falhas gerais", general, "flaw", "general");
+      const empty = document.createElement("p");
+      empty.className = "modifier-empty";
+      empty.dataset.modifierEmpty = "true";
+      empty.textContent = "Nenhum modificador encontrado.";
+      empty.hidden = true;
+      modifierList.appendChild(empty);
+      applyModifierFilter();
+    }
+
+    function modifierCostLabel(type, value) {
+      if (type === "perRank") return `${value >= 0 ? "+" : ""}${value} por graduação`;
+      if (type === "flatRank") return `${value >= 0 ? "+" : ""}${value} fixo por graduação`;
+      if (type === "flatPer5") return `${value} a cada 5 PP`;
+      return `${value >= 0 ? "+" : ""}${value} fixo`;
+    }
+
+    function defaultModifierAmount(type, value) {
+      if (type === "perRank") return Math.abs(value);
+      return 1;
+    }
+
+    function selectedEffect() {
+      return DATA.powers[Number.parseInt(powerEffectSelect.value, 10)] || DATA.powers[0];
+    }
+
+    function selectedModifiers() {
+      return [...modifierList.querySelectorAll(".mod-control")]
+        .map((row) => {
+          const checkbox = row.querySelector("input[type='checkbox']");
+          if (!checkbox.checked) return null;
+          const modifier = currentModifierOptions[Number.parseInt(checkbox.dataset.modifierIndex, 10)];
+          const amountInput = row.querySelector("input[type='number']");
+          const amount = Math.max(0, Number.parseInt(amountInput.value, 10) || 0);
+          return { modifier, amount };
+        })
+        .filter(Boolean);
+    }
+
+    function calculateBuiltPower() {
+      const effect = selectedEffect();
+      const rank = Math.max(0, Number.parseInt(powerRankInput.value, 10) || 0);
+      const base = Math.max(0, Number.parseInt(powerBaseInput.value, 10) || effect?.[6] || 1);
+      const mods = selectedModifiers();
+      let perRankDelta = 0;
+      let flatDelta = 0;
+      const labels = [];
+
+      mods.forEach(({ modifier, amount }) => {
+        const [, name, type, value] = modifier;
+        const signedAmount = value < 0 ? -Math.abs(amount || value) : Math.abs(amount || value);
+        labels.push(`${name} ${signedAmount >= 0 ? "+" : ""}${signedAmount}`);
+
+        if (type === "perRank") {
+          perRankDelta += signedAmount;
+        } else if (type === "flatRank") {
+          flatDelta += signedAmount;
+        } else if (type === "flatPer5") {
+          flatDelta += signedAmount * Math.ceil(Math.max(1, rank * base) / 5);
+        } else {
+          flatDelta += signedAmount;
+        }
+      });
+
+      const modifiedRate = base + perRankDelta;
+      let rankCost = 0;
+      let rateLabel = `${modifiedRate} PP/grad`;
+
+      if (rank <= 0) {
+        rankCost = 0;
+      } else if (modifiedRate >= 1) {
+        rankCost = rank * modifiedRate;
+      } else {
+        const ratio = 2 - modifiedRate;
+        rankCost = Math.ceil(rank / ratio);
+        rateLabel = `1 PP/${ratio} grad`;
+      }
+
+      const total = Math.max(rank > 0 ? 1 : 0, rankCost + flatDelta);
+
+      return {
+        effect,
+        rank,
+        base,
+        perRankDelta,
+        flatDelta,
+        modifiedRate,
+        rateLabel,
+        total,
+        modifiers: labels,
+      };
+    }
+
+    function updatePowerBuilder() {
+      const built = calculateBuiltPower();
+      const [name, type, action, range, duration, resistance,, variable, page, summary] = built.effect;
+      const customName = powerNameInput.value.trim() || name;
+      powerSummary.innerHTML = `
+        <strong>${customName}</strong><br>
+        ${summary}<br>
+        Tipo: ${type} · Ação: ${action} · Alcance: ${range} · Duração: ${duration} · Resistência: ${resistance} · p. ${page}
+        ${built.modifiers.length ? `<br>Modificadores: ${built.modifiers.join(", ")}` : ""}
+        ${variable ? "<br>Este efeito tem custo variável no livro; ajuste o custo base se necessário." : ""}
+      `;
+      powerCost.textContent = `${built.total} PP`;
+      powerFormula.textContent = `Grad ${built.rank} × ${built.rateLabel}${built.flatDelta ? `, ${built.flatDelta >= 0 ? "+" : ""}${built.flatDelta} fixo` : ""}`;
+    }
+
+    function addBuiltPowerToSheet() {
+      const built = calculateBuiltPower();
+      const [effectName, type, action, range, duration,,,, page] = built.effect;
+      const customName = powerNameInput.value.trim() || effectName;
+      const notes = [
+        `${effectName} grad ${built.rank}; p. ${page}.`,
+        built.modifiers.length ? `Modificadores: ${built.modifiers.join(", ")}.` : "",
+        powerNotesInput.value.trim(),
+      ].filter(Boolean).join("\n");
+      let rowIndex = DYNAMIC_GROUPS.powers.rows.findIndex(([fieldKey]) => !fieldMap.get(fieldKey)?.value.trim());
+      if (rowIndex === -1) {
+        addSheetRow("powers", false);
+        rowIndex = DYNAMIC_GROUPS.powers.rows.length - 1;
+      }
+
+      const [nameKey, typeKey, actionKey, rangeKey, durationKey, costKey, notesKey] = DYNAMIC_GROUPS.powers.rows[rowIndex];
+      fieldMap.get(nameKey).value = customName;
+      fieldMap.get(typeKey).value = type;
+      fieldMap.get(actionKey).value = action;
+      fieldMap.get(rangeKey).value = range;
+      fieldMap.get(durationKey).value = duration;
+      fieldMap.get(costKey).value = String(built.total);
+      fieldMap.get(notesKey).value = notes;
+
+      builtPowers = builtPowers.filter((power) => power.rowKey !== nameKey);
+      builtPowers.push({
+        rowKey: nameKey,
+        name: customName,
+        effect: effectName,
+        rank: built.rank,
+        cost: built.total,
+        page,
+        modifiers: built.modifiers,
+      });
+
+      renderBuiltPowers();
+      calculatePowerPoints();
+      save();
+      setStatus("+Poder");
+      switchScreen("sheet");
+    }
+
+    function clearPowerRow(rowKey) {
+      const row = DYNAMIC_GROUPS.powers.rows.find(([nameKey]) => nameKey === rowKey);
+      if (!row) {
+        return;
+      }
+      row.forEach((fieldKey) => {
+        const field = fieldMap.get(fieldKey);
+        if (field) {
+          field.value = "";
+        }
+      });
+    }
+
+    function renderBuiltPowers() {
+      builtPowersList.innerHTML = "";
+      if (!builtPowers.length) {
+        const empty = document.createElement("p");
+        empty.textContent = "Nenhum poder criado ainda.";
+        empty.style.margin = "0";
+        empty.style.color = "#626a73";
+        builtPowersList.appendChild(empty);
+        return;
+      }
+
+      builtPowers.forEach((power) => {
+        const item = document.createElement("div");
+        item.className = "built-item";
+        const summary = document.createElement("span");
+        const name = document.createElement("strong");
+        const button = document.createElement("button");
+        name.textContent = power.name;
+        summary.append(name, ` · ${power.effect} ${power.rank} · ${power.cost} PP`);
+        button.type = "button";
+        button.textContent = "Remover";
+        button.addEventListener("click", () => {
+          clearPowerRow(power.rowKey);
+          builtPowers = builtPowers.filter((entry) => entry !== power);
+          calculatePowerPoints();
+          save();
+          renderBuiltPowers();
+        });
+        item.append(summary, button);
+        builtPowersList.appendChild(item);
+      });
+    }
+
+    function parseAdvantageCost(nameKey, rankKey, costKey) {
+      const name = fieldMap.get(nameKey)?.value || "";
+      if (!name.trim()) return 0;
+      const rank = numberValue(rankKey);
+      const costRaw = fieldMap.get(costKey)?.value.trim() || "";
+      const cost = decimalValue(costRaw, 0);
+      if (costRaw !== "") return Math.max(0, cost);
+      if (advantagePurchases[nameKey]) return advantagePurchases[nameKey].cost || 0;
+      const advantage = advantageForName(name);
+      if (advantage && rank > 0) return calculateAdvantageCost({ costRule: advantage[6] }, rank);
+      if (rank > 0) return rank;
+      const trailingRank = Number.parseInt(name.match(/\s(\d+)$/)?.[1] || "1", 10);
+      return Number.isFinite(trailingRank) ? Math.max(1, trailingRank) : 1;
+    }
+
+    function characterLevel() {
+      return Math.max(1, integerValue(fieldMap.get("level")?.value, 1));
+    }
+
+    function ppLimitForLevel(level) {
+      return 20 + Math.max(0, level - 1) * 10;
+    }
+
+    function calculatePowerPoints() {
+      const abilityCost = ABILITY_KEYS.reduce((sum, key) => sum + numberValue(key) * 2, 0);
+      const skillRanks = DYNAMIC_GROUPS.skills.rows.reduce((sum, [, ranksKey]) => sum + Math.max(0, numberValue(ranksKey)), 0);
+      const skillCost = Math.ceil(skillRanks / 2);
+      const advantageCost = DYNAMIC_GROUPS.advantages.rows.reduce((sum, [nameKey, rankKey, costKey]) => {
+        return sum + parseAdvantageCost(nameKey, rankKey, costKey);
+      }, 0);
+      const defenseCost = DEFENSE_BASES.reduce((sum, [defenseKey, baseKey]) => {
+        return sum + Math.max(0, numberValue(defenseKey) - numberValue(baseKey));
+      }, 0);
+      const powerCostTotal = DYNAMIC_GROUPS.powers.rows.reduce((sum, [nameKey,,,,, costKey, notesKey]) => {
+        const hasName = Boolean(fieldMap.get(nameKey)?.value.trim());
+        const costRaw = fieldMap.get(costKey)?.value.trim() || "";
+        if (costRaw !== "") {
+          return sum + Math.max(0, integerValue(costRaw, 0));
+        }
+        const built = builtPowers.find((power) => power.rowKey === nameKey);
+        if (built) return sum + Math.max(0, integerValue(built.cost, 0));
+        const notes = fieldMap.get(notesKey)?.value || "";
+        const manualCost = Number.parseInt(notes.match(/custo\s+(\d+)\s*PP/i)?.[1] || "0", 10);
+        return sum + (hasName && Number.isFinite(manualCost) ? manualCost : 0);
+      }, 0);
+      const total = abilityCost + skillCost + advantageCost + defenseCost + powerCostTotal;
+      const level = characterLevel();
+      const ppLimit = ppLimitForLevel(level);
+      const overLimit = total > ppLimit;
+      const label = `PP ${formatCostValue(total)}/${ppLimit}`;
+      ppTotalEl.textContent = label;
+      sheetPpEl.textContent = label;
+      ppTotalEl.classList.toggle("over-limit", overLimit);
+      sheetPpEl.classList.toggle("over-limit", overLimit);
+      ppWarningEl.classList.toggle("active", overLimit);
+      ppWarningEl.textContent = overLimit
+        ? `Limite excedido em ${formatCostValue(total - ppLimit)} PP para o nível ${level}.`
+        : "";
+      return { abilityCost, skillCost, advantageCost, defenseCost, powerCostTotal, total, level, ppLimit, overLimit };
+    }
+
+    function collectData() {
+      return {
+        ...Object.fromEntries([...fieldMap.entries()].map(([key, field]) => [key, field.value])),
+        _rowCounts: { ...rowCounts },
+        _conditions: [...selectedConditions],
+        _advantagePurchases: { ...advantagePurchases },
+        _builtPowers: [...builtPowers],
+      };
+    }
+
+    function migrateAdvantageRows(data = {}) {
+      DYNAMIC_GROUPS.advantages.rows.forEach(([nameKey, rankKey, costKey]) => {
+        const purchase = advantagePurchases[nameKey];
+        if (!purchase || Object.prototype.hasOwnProperty.call(data, rankKey)) {
+          return;
+        }
+
+        const rankField = fieldMap.get(rankKey);
+        const costField = fieldMap.get(costKey);
+        if (rankField) {
+          rankField.value = String(purchase.ranks || 1);
+        }
+        if (costField) {
+          costField.value = String(purchase.cost || purchase.ranks || 1);
+          costField.dataset.autoCost = "true";
+        }
+      });
+    }
+
+    function applyData(source = {}) {
+      const data = normalizeImportedData(source);
+      primeRowCounts(data);
+      Object.entries(rowCounts).forEach(([groupKey, count]) => ensureRowCount(groupKey, count));
+
+      fieldMap.forEach((field) => {
+        field.value = "";
+        delete field.dataset.autoCost;
+      });
+
+      Object.entries(data).forEach(([key, value]) => {
+        const field = fieldMap.get(key);
+        if (field) {
+          field.value = value ?? "";
+        }
+      });
+
+      Object.keys(advantagePurchases).forEach((key) => delete advantagePurchases[key]);
+      Object.assign(advantagePurchases, data?._advantagePurchases || {});
+      migrateAdvantageRows(data);
+      builtPowers = Array.isArray(data?._builtPowers) ? data._builtPowers : [];
+      selectedConditions.clear();
+      (Array.isArray(data?._conditions) ? data._conditions : []).forEach((key) => {
+        if (conditionButtons.has(key)) {
+          selectedConditions.add(key);
+        }
+      });
+      updateAllDefenseClasses(false);
+      syncConditions();
+      renderBuiltPowers();
+      calculatePowerPoints();
+    }
+
+    function save() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(collectData()));
+      setStatus("Salvo");
+    }
+
+    function load(initialData = null) {
+      if (!initialData) {
+        updateAllDefenseClasses(false);
+        syncConditions();
+        renderBuiltPowers();
+        calculatePowerPoints();
+        return;
+      }
+      applyData(initialData);
+    }
+
+    function updateDefenseClasses(changedKey) {
+      for (const [baseKey, classKey] of DEFENSE_PAIRS) {
+        if (changedKey !== baseKey) {
+          continue;
+        }
+
+        const base = fieldMap.get(baseKey);
+        const defenseClass = fieldMap.get(classKey);
+        const value = Number.parseInt(base.value, 10);
+        defenseClass.value = Number.isFinite(value) ? String(value + 10) : "";
+      }
+    }
+
+    function updateAllDefenseClasses(shouldSave = true) {
+      for (const [baseKey] of DEFENSE_PAIRS) {
+        updateDefenseClasses(baseKey);
+      }
+      updateSkillTotals();
+      if (shouldSave) {
+        save();
+      }
+    }
+
+    function exportData() {
+      const data = collectData();
+      const feiticeiro = (data.feiticeironame || "ficha-jujutsu-kaisen")
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "") || "ficha-jujutsu-kaisen";
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `${feiticeiro}.json`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+      setStatus("Exportado");
+    }
+
+    function exportPdf() {
+      save();
+      setStatus("PDF");
+      window.print();
+    }
+
+    async function importData(file) {
+      if (!file) {
+        return;
+      }
+
+      try {
+        const data = JSON.parse(await file.text());
+        applyData(data);
+        save();
+        setStatus("Importado");
+      } catch {
+        setStatus("Arquivo inválido");
+      } finally {
+        fileInput.value = "";
+      }
+    }
+
+    function clearData() {
+      if (!confirm("Limpar todos os campos da ficha?")) {
+        return;
+      }
+
+      fieldMap.forEach((field) => {
+        field.value = "";
+        delete field.dataset.autoCost;
+      });
+      selectedConditions.clear();
+      Object.keys(advantagePurchases).forEach((key) => delete advantagePurchases[key]);
+      builtPowers = [];
+      renderBuiltPowers();
+      syncConditions();
+      calculatePowerPoints();
+      localStorage.removeItem(STORAGE_KEY);
+      setStatus("Limpo");
+    }
+
+    document.querySelector("[data-action='print']").addEventListener("click", () => window.print());
+    document.querySelector("[data-action='export-pdf']").addEventListener("click", exportPdf);
+    document.querySelector("[data-action='export-data']").addEventListener("click", exportData);
+    document.querySelector("[data-action='import']").addEventListener("click", () => fileInput.click());
+    document.querySelector("[data-action='add-built-power']").addEventListener("click", addBuiltPowerToSheet);
+    document.querySelector("[data-action='clear']").addEventListener("click", clearData);
+    document.querySelector("[data-action='highlight']").addEventListener("change", (event) => {
+      document.body.classList.toggle("highlight-fields", event.target.checked);
+    });
+    document.querySelectorAll("[data-action='add-sheet-row']").forEach((button) => {
+      button.addEventListener("click", () => addSheetRow(button.dataset.group));
+    });
+    skillSearch.addEventListener("input", () => renderSkills(skillSearch.value));
+    advantageSearch.addEventListener("input", () => renderAdvantages(advantageSearch.value));
+    fileInput.addEventListener("change", () => importData(fileInput.files[0]));
+
+    const initialData = readStoredData();
+    if (initialData) {
+      primeRowCounts(normalizeImportedData(initialData));
+    }
+    renderInitialRows();
+    hydrateFields();
+    registerConditionButtons();
+    renderScreenNav();
+    renderSkills();
+    renderAdvantages();
+    renderPowerBuilder();
+    load(initialData);
+  </script>
+</body>
+</html>
