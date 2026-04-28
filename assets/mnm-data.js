@@ -121,6 +121,7 @@ window.MNM_DATA = {
     ["Cura", "Geral", "Padrão", "Perto", "Instantâneo", "—", 2, false, 103, "Remova condições de dano ou ajude na recuperação de um alvo."],
     ["Dano", "Ataque", "Padrão", "Perto", "Instantâneo", "Resistência", 1, false, 104, "Cause dano corpo-a-corpo ou como base para ataques ofensivos."],
     ["Deflexão", "Defesa", "Padrão", "À Distância", "Instantâneo", "—", 1, false, 105, "Proteja você ou outros contra ataques usando uma defesa ativa."],
+    ["Domínio", "Controle", "Padrão", "Percepção", "Sustentado", "—", 10, false, 1, "Você expande sua energia amaldiçoada num raio de 9 metros a aprtir de você, dentro dessa area, qualquer tecnica amaldiçoada tem acerto garantido. Esta tecnica SEMPRE gasta energia espiritual. Um domínio anquila completamente o outro."],
     ["Duplicação", "Controle", "Padrão", "Perto", "Sustentado", "—", 3, false, 92, "Crie duplicatas funcionais de você."],
     ["Encolhimento", "Geral", "Livre", "Pessoal", "Sustentado", "—", 2, false, 105, "Reduza tamanho e massa, ganhando benefícios e limitações proporcionais."],
     ["Enfraquecer", "Ataque", "Padrão", "Perto", "Instantâneo", "Fortitude ou Vontade", 1, false, 106, "Reduza temporariamente uma característica do alvo."],
@@ -247,6 +248,12 @@ window.MNM_DATA = {
     "Deflexão": [
       ["extra", "Redirecionar", "perRank", 1, "Modificador específico de Deflexão."],
       ["extra", "Reflexão", "perRank", 1, "Modificador específico de Deflexão."],
+    ],
+    "Domínio": [
+      ["extra", "Inato", "flat", 5, "Seu domínio tem alcance reduzido para 1,5 metros, porém é inato e não precisa ser sustentado."]
+      ["flaw", "Simples", "flat", -5, "Seu somínio só serve para anular outros domínios."]
+      ["flaw", "Focado", "flat", -5, "Seu domínio só afeta uma criatura a escolha."]
+      ["flaw", "Imperfeito", "flat", -2, "Seu domínio nao garante mais acerto, porém ainda aumenta +5 no seu acerto."]
     ],
     "Encolhimento": [
       ["extra", "Atômico", "flat", 1, "Modificador específico de Encolhimento."],
