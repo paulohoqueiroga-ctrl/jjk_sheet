@@ -121,7 +121,7 @@ window.MNM_DATA = {
     ["Cura", "Geral", "Padrão", "Perto", "Instantâneo", "—", 2, false, 103, "Remova condições de dano ou ajude na recuperação de um alvo."],
     ["Dano", "Ataque", "Padrão", "Perto", "Instantâneo", "Resistência", 1, false, 104, "Cause dano corpo-a-corpo ou como base para ataques ofensivos."],
     ["Deflexão", "Defesa", "Padrão", "À Distância", "Instantâneo", "—", 1, false, 105, "Proteja você ou outros contra ataques usando uma defesa ativa."],
-    ["Domínio", "Controle", "Padrão", "Percepção", "Sustentado", "—", 10, false, 1, "Você expande sua energia amaldiçoada num raio de 9 metros a aprtir de você, dentro dessa area, qualquer tecnica amaldiçoada tem acerto garantido. Esta tecnica SEMPRE gasta energia espiritual. Um domínio anquila completamente o outro."],
+    ["Domínio", "Controle", "Padrão", "Percepção", "Sustentado", "—", 10, false, 1, "Você expande sua energia amaldiçoada num raio de 9 metros a partir de você, dentro dessa area, qualquer técnica amaldiçoada tem acerto garantido. Esta técnica SEMPRE gasta energia espiritual. Um domínio tem os efeitos de nulificar a outros domínios."],
     ["Duplicação", "Controle", "Padrão", "Perto", "Sustentado", "—", 3, false, 92, "Crie duplicatas funcionais de você."],
     ["Encolhimento", "Geral", "Livre", "Pessoal", "Sustentado", "—", 2, false, 105, "Reduza tamanho e massa, ganhando benefícios e limitações proporcionais."],
     ["Enfraquecer", "Ataque", "Padrão", "Perto", "Instantâneo", "Fortitude ou Vontade", 1, false, 106, "Reduza temporariamente uma característica do alvo."],
