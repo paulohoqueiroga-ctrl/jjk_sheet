@@ -250,10 +250,10 @@ window.MNM_DATA = {
       ["extra", "Reflexão", "perRank", 1, "Modificador específico de Deflexão."],
     ],
     "Domínio": [
-      ["extra", "Inato", "flat", 5, "Seu domínio tem alcance reduzido para 1,5 metros, porém é inato e não precisa ser sustentado."]
-      ["flaw", "Simples", "flat", -5, "Seu somínio só serve para anular outros domínios."]
-      ["flaw", "Focado", "flat", -5, "Seu domínio só afeta uma criatura a escolha."]
-      ["flaw", "Imperfeito", "flat", -2, "Seu domínio nao garante mais acerto, porém ainda aumenta +5 no seu acerto."]
+      ["extra", "Inato", "flat", 5, "Seu domínio tem alcance reduzido para 1,5 metros, porém é inato e não precisa ser sustentado."],
+      ["flaw", "Simples", "flat", -5, "Seu somínio só serve para anular outros domínios."],
+      ["flaw", "Focado", "flat", -5, "Seu domínio só afeta uma criatura a escolha."],
+      ["flaw", "Imperfeito", "flat", -2, "Seu domínio nao garante mais acerto, porém ainda aumenta +5 no seu acerto."],
     ],
     "Encolhimento": [
       ["extra", "Atômico", "flat", 1, "Modificador específico de Encolhimento."],
