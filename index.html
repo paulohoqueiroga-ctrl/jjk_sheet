@@ -670,12 +670,11 @@
     .health-condition-stack {
       display: grid;
       gap: 10px;
+      color: #000000;
     }
 
     .hits-notes {
-      display: grid;
-      grid-template-columns: 86px minmax(0, 1fr);
-      gap: 8px;
+      grid-template-columns: 1fr;
     }
 
     .hits-notes .black-box {
@@ -1922,7 +1921,7 @@
                 <span class="ability-note">Testes de inteligência</span>
               </label>
               <label class="ability-card">
-                <span class="ability-name">AWE</span>
+                <span class="ability-name">PRO</span>
                 <input name="awe" type="text" inputmode="numeric" data-label="AWE">
                 <span class="ability-note">Defesa Vontade</span>
               </label>
@@ -2045,27 +2044,27 @@
             <label class="defense-row">
               <span class="defense-label">Resiliência</span>
               <input name="toughness" type="text" inputmode="numeric" data-label="Toughness">
-              <span class="defense-class-field"><input name="toughness-class" type="text" inputmode="numeric" data-label="Toughness Class"></span>
+              <span class="defense-class-field"><input name="toughness-class" readonly type="text" inputmode="numeric" data-label="Toughness Class"></span>
             </label>
             <label class="defense-row">
               <span class="defense-label">Esquiva</span>
               <input name="dodge" type="text" inputmode="numeric" data-label="Dodge">
-              <span class="defense-class-field"><input name="dodge-class" type="text" inputmode="numeric" data-label="Dodge Class"></span>
+              <span class="defense-class-field"><input name="dodge-class" readonly type="text" inputmode="numeric" data-label="Dodge Class"></span>
             </label>
             <label class="defense-row">
               <span class="defense-label">Aparar</span>
               <input name="parry" type="text" inputmode="numeric" data-label="Parry">
-              <span class="defense-class-field"><input name="parry-class" type="text" inputmode="numeric" data-label="Parry Class"></span>
+              <span class="defense-class-field"><input name="parry-class" readonly type="text" inputmode="numeric" data-label="Parry Class"></span>
             </label>
             <label class="defense-row">
               <span class="defense-label">Fortitude</span>
               <input name="fortitude" type="text" inputmode="numeric" data-label="Fortitude">
-              <span class="defense-class-field"><input name="fortitude-class" type="text" inputmode="numeric" data-label="Fortitude Class"></span>
+              <span class="defense-class-field"><input name="fortitude-class" readonly type="text" inputmode="numeric" data-label="Fortitude Class"></span>
             </label>
             <label class="defense-row">
               <span class="defense-label">Vontade</span>
               <input name="will" type="text" inputmode="numeric" data-label="Will">
-              <span class="defense-class-field"><input name="will-class" type="text" inputmode="numeric" data-label="Will Class"></span>
+              <span class="defense-class-field"><input name="will-class" readonly type="text" inputmode="numeric" data-label="Will Class"></span>
             </label>
           </div>
         </section>
@@ -2212,6 +2211,7 @@
     const DATA = window.MNM_DATA || { skills: [], advantages: [], powers: [], modifiers: [], powerModifiers: {}, powerModifierAliases: {} };
     const ABILITY_KEYS = ["str", "sta", "agl", "dex", "fgt", "int", "awe", "pre"];
     const DEFENSE_BASES = [
+      ["toughness", "sta"],
       ["dodge", "agl"],
       ["parry", "fgt"],
       ["fortitude", "sta"],
@@ -2219,6 +2219,18 @@
     ];
 
     const sheet = document.querySelector("[data-sheet]");
+    sheet.addEventListener("input", (e) => {
+      const name = e.target.name;
+    
+      const relevantFields = [
+        "toughness", "dodge", "parry", "fortitude", "will",
+        "sta", "agl", "fgt", "awe"
+      ];
+    
+      if (relevantFields.includes(name)) {
+        updateDefenses();
+      }
+    });
     const statusEl = document.querySelector("[data-status]");
     const fileInput = document.querySelector("[data-import-file]");
     const ppTotalEl = document.querySelector("[data-pp-total]");
@@ -3366,6 +3378,25 @@
       }
     }
 
+    function updateDefenses() {
+      const sta = numberValue("sta");
+      const agl = numberValue("agl");
+      const fgt = numberValue("fgt");
+      const awe = numberValue("awe");
+    
+      const baseTough = numberValue("toughness");
+      const baseDodge = numberValue("dodge");
+      const baseParry = numberValue("parry");
+      const baseFort = numberValue("fortitude");
+      const baseWill = numberValue("will");
+    
+      fieldMap.get("toughness-class").value = baseTough + sta;
+      fieldMap.get("dodge-class").value = baseDodge + agl;
+      fieldMap.get("parry-class").value = baseParry + fgt;
+      fieldMap.get("fortitude-class").value = baseFort + sta;
+      fieldMap.get("will-class").value = baseWill + awe;
+    }
+    
     function clearData() {
       if (!confirm("Limpar todos os campos da ficha?")) {
         return;
@@ -3400,7 +3431,7 @@
     skillSearch.addEventListener("input", () => renderSkills(skillSearch.value));
     advantageSearch.addEventListener("input", () => renderAdvantages(advantageSearch.value));
     fileInput.addEventListener("change", () => importData(fileInput.files[0]));
-
+    
     const initialData = readStoredData();
     if (initialData) {
       primeRowCounts(normalizeImportedData(initialData));
