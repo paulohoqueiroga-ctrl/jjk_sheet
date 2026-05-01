@@ -3390,11 +3390,11 @@
       const baseFort = numberValue("fortitude");
       const baseWill = numberValue("will");
     
-      fieldMap.get("toughness-class").value = baseTough + sta;
-      fieldMap.get("dodge-class").value = baseDodge + agl;
-      fieldMap.get("parry-class").value = baseParry + fgt;
-      fieldMap.get("fortitude-class").value = baseFort + sta;
-      fieldMap.get("will-class").value = baseWill + awe;
+      fieldMap.get("toughness-class").value = baseTough + sta + 10;
+      fieldMap.get("dodge-class").value = baseDodge + agl + 10;
+      fieldMap.get("parry-class").value = baseParry + fgt + 10;
+      fieldMap.get("fortitude-class").value = baseFort + sta + 10;
+      fieldMap.get("will-class").value = baseWill + awe + 10;
     }
     
     function clearData() {
